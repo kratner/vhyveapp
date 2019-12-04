@@ -26,7 +26,11 @@ class VHyveLogo extends Component {
                 </feMerge>
               </filter>
 
-              <symbol id="vhyvelogo" viewBox="0 0 300 300">
+              <symbol
+                id="vhyvelogo"
+                className="vhyvelogosvg"
+                viewBox="0 0 300 300"
+              >
                 <path
                   fill="#FDDE6B"
                   d="M29.658,118.952c-15.306,0-29.437-18.291-29.437-33.492c0-14.206,2.631-37.904,6.418-45.951
