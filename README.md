@@ -1,3 +1,17 @@
+# vHyve
+
+## vHyve Simultaneous Video Streaming
+
+https://kratner.github.io/wpreactkrlive/
+
+In vhyveapp project folder, run:
+
+### `npm start`
+
+### `npm run deploy` to publish to GitHub Pages
+
+# Deprecated
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
