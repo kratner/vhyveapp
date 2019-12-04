@@ -8,7 +8,9 @@ In vhyveapp project folder, run:
 
 ### `npm start`
 
-### `npm run deploy` to publish to GitHub Pages
+### `npm run deploy`
+
+to publish to GitHub Pages.
 
 # Deprecated
 
