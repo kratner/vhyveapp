@@ -2,7 +2,7 @@
 
 ## vHyve Simultaneous Video Streaming
 
-https://kratner.github.io/wpreactkrlive/
+https://kratner.github.io/vhyveapp/
 
 In vhyveapp project folder, run:
 
