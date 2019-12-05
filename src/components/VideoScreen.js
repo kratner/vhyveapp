@@ -10,8 +10,9 @@ const VideoScreenContainer = styled.div`
   align-items: center;
   background-image: url(https://raw.githubusercontent.com/kratner/vhyveapp/master/public/20191117_163741.jpg);
   background-size: cover;
+  background-position: center;
 `;
-// https://raw.githubusercontent.com/kratner/vhyveapp/master/public/20191117_163741.jpg
+
 const FocalPointSVG = styled(FocalPoint)``;
 
 class VideoScreen extends Component {
