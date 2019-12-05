@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/vhyveapp/static/css/main.a30d6586.chunk.css",
-    "main.js": "/vhyveapp/static/js/main.f9a109b4.chunk.js",
-    "main.js.map": "/vhyveapp/static/js/main.f9a109b4.chunk.js.map",
+    "main.css": "/vhyveapp/static/css/main.05fe3311.chunk.css",
+    "main.js": "/vhyveapp/static/js/main.d8ee39ab.chunk.js",
+    "main.js.map": "/vhyveapp/static/js/main.d8ee39ab.chunk.js.map",
     "runtime-main.js": "/vhyveapp/static/js/runtime-main.81323e82.js",
     "runtime-main.js.map": "/vhyveapp/static/js/runtime-main.81323e82.js.map",
-    "static/js/2.743d3023.chunk.js": "/vhyveapp/static/js/2.743d3023.chunk.js",
-    "static/js/2.743d3023.chunk.js.map": "/vhyveapp/static/js/2.743d3023.chunk.js.map",
+    "static/js/2.28640f95.chunk.js": "/vhyveapp/static/js/2.28640f95.chunk.js",
+    "static/js/2.28640f95.chunk.js.map": "/vhyveapp/static/js/2.28640f95.chunk.js.map",
     "index.html": "/vhyveapp/index.html",
-    "precache-manifest.d02254184f77922dbb1af905c0dda516.js": "/vhyveapp/precache-manifest.d02254184f77922dbb1af905c0dda516.js",
+    "precache-manifest.83ea4c85cf161b9cb25c8bf466a3dc93.js": "/vhyveapp/precache-manifest.83ea4c85cf161b9cb25c8bf466a3dc93.js",
     "service-worker.js": "/vhyveapp/service-worker.js",
-    "static/css/main.a30d6586.chunk.css.map": "/vhyveapp/static/css/main.a30d6586.chunk.css.map"
+    "static/css/main.05fe3311.chunk.css.map": "/vhyveapp/static/css/main.05fe3311.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.81323e82.js",
-    "static/js/2.743d3023.chunk.js",
-    "static/css/main.a30d6586.chunk.css",
-    "static/js/main.f9a109b4.chunk.js"
+    "static/js/2.28640f95.chunk.js",
+    "static/css/main.05fe3311.chunk.css",
+    "static/js/main.d8ee39ab.chunk.js"
   ]
 }
