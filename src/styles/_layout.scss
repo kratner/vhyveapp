@@ -1,4 +1,10 @@
 .vhyvelogo__parent {
   margin-top: 0.5em;
+  position: fixed;
   text-align: center;
+  width: 100%;
+  @media only screen and (orientation: landscape) {
+    margin-left: 0.5em;
+    text-align: left;
+  }
 }

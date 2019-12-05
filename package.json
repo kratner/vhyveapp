@@ -36,6 +36,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "gh-pages": "^2.1.1",
-    "node-sass": "^4.13.0"
+    "node-sass": "^4.13.0",
+    "styled-components": "^4.4.1"
   }
 }
