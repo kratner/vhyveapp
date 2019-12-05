@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "de5cd86ed69836cf4084bfb7fad6b040",
+    "revision": "6b1f09ff9c34a51736e5a71d84d06a8d",
     "url": "/vhyveapp/index.html"
   },
   {
