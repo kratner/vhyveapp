@@ -23,6 +23,7 @@ const UserIconContainer = styled.div`
   position: absolute;
   top: 0.5em;
   right: 0.5em;
+  z-index: 10;
 `;
 const UserIcon = props => {
   return (

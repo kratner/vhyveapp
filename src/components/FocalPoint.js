@@ -5,6 +5,7 @@ const SVGContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 5;
 `;
 
 const FocalPoint = props => {
