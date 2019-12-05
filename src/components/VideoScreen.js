@@ -3,22 +3,22 @@ import FocalPoint from "./FocalPoint";
 import styled from "styled-components";
 
 const VideoScreenContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  left: 0;
-  right: 0;
-  margin: auto;
-  text-align: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(https://raw.githubusercontent.com/kratner/vhyveapp/master/public/20191117_163741.jpg);
+  background-size: cover;
 `;
+// https://raw.githubusercontent.com/kratner/vhyveapp/master/public/20191117_163741.jpg
+const FocalPointSVG = styled(FocalPoint)``;
 
 class VideoScreen extends Component {
   render() {
     return (
       <VideoScreenContainer className="videoscreen">
-        <FocalPoint recording="true" />
+        <FocalPointSVG recording="true" />
       </VideoScreenContainer>
     );
   }
