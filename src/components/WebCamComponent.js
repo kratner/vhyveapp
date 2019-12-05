@@ -49,8 +49,7 @@ const WebCamComponent = props => {
         //width={1280}
         //videoConstraints={videoConstraints}
         videoConstraints={{
-          //facingMode: props.front ? "user" : { exact: "environment" }
-          facingMode: props.front ? "user" : "environment"
+          facingMode: props.front ? "user" : { exact: "environment" }
         }}
       />
     </WebcamScreenContainer>
