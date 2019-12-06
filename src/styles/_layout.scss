@@ -1,3 +1,6 @@
+body {
+  overflow: hidden;
+}
 .vhyvelogo__parent {
   margin-left: 0.5em;
   margin-top: 0.5em;
@@ -7,5 +10,15 @@
   z-index: 10;
   @media only screen and (orientation: landscape) {
     text-align: left;
+  }
+}
+#controlcontainer {
+  transition: height 0.25s;
+  height: 0em;
+  background-color: #ffffff25;
+  overflow: hidden;
+  &.open {
+    //height: 5em;
+    height: auto;
   }
 }

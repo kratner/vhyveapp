@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Webcam from "react-webcam";
 import styled from "styled-components";
 
@@ -36,24 +36,37 @@ const WebcamScreen = styled(Webcam)`
   transform: translate(-50%, -50%);
 `;
 
-const WebCamComponent = props => {
-  const webcamRef = React.useRef(null);
-  return (
-    <WebcamScreenContainer>
-      <WebcamScreen
-        className="webcamscreen"
-        audio={false}
-        //height={720}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        //width={1280}
-        //videoConstraints={videoConstraints}
-        videoConstraints={{
-          facingMode: props.front ? "user" : { exact: "environment" }
-        }}
-      />
-    </WebcamScreenContainer>
-  );
-};
+class WebCamComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: true
+    };
+  }
+  render() {
+    //const facingMode = this.props.front ? "user" : { exact: "environment" };
+    return (
+      <WebcamScreenContainer>
+        <WebcamScreen
+          className="webcamscreen"
+          id="webcamscreen"
+          //audio={false}
+          //videosource="ad73df458d8a30aed8c537eec886310f70deab646e4046d04f987960163ec3bc"
+          audiosource={this.props.audiosource}
+          videosource={this.props.videosource}
+          //height={720}
+          //screenshotFormat="image/jpeg"
+          //width={1280}
+          //videoConstraints={videoConstraints}
+          /*
+          videoConstraints={{
+            facingMode: facingMode
+          }}
+          */
+        />
+      </WebcamScreenContainer>
+    );
+  }
+}
 
 export default WebCamComponent;

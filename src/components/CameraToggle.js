@@ -6,9 +6,6 @@ const CameraToggleContainer = styled.div`
   color: #fff;
   cursor: pointer;
   z-index: 10;
-  position: absolute;
-  left: 0.5em;
-  bottom: 0.5em;
   &:hover {
     color: #fdde6b;
   }
