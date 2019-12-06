@@ -39,7 +39,7 @@ class ControlDrawer extends Component {
       open: true
     };
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleCameraSwitch = this.handleCameraSwitch.bind(this);
+    //this.handleCameraSwitch = this.handleCameraSwitch.bind(this);
   }
   handleToggle() {
     const controlDrawer = document.getElementById("controlcontainer");
@@ -55,9 +55,11 @@ class ControlDrawer extends Component {
   handleCameraToggle() {
     this.props.handleCameraToggle();
   }
+  /*
   handleCameraSwitch() {
     this.props.handleCameraSwitch();
   }
+  */
   handleAudioInputItemSelect(thisComponent, DeviceId) {
     this.props.handleAudioInputItemSelect(DeviceId);
   }

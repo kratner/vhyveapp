@@ -28,7 +28,7 @@ class VideoScreen extends Component {
     };
     this.webCamRef = React.createRef();
     this.handleCameraToggle = this.handleCameraToggle.bind(this);
-    this.handleCameraSwitch = this.handleCameraSwitch.bind(this);
+    //this.handleCameraSwitch = this.handleCameraSwitch.bind(this);
     this.handleAudioInputItemSelect = this.handleAudioInputItemSelect.bind(
       this
     );
@@ -39,11 +39,13 @@ class VideoScreen extends Component {
   gotDevices(evt) {
     debugger;
   }
+  /*
   handleCameraSwitch() {
     this.setState({
       front: !this.state.front
     });
   }
+  */
   handleCameraToggle() {
     this.setState({
       active: !this.state.active
@@ -55,6 +57,8 @@ class VideoScreen extends Component {
     });
   }
   handleVideoInputItemSelect(DeviceId) {
+    const videoelement = document.getElementById("videoelement");
+    debugger;
     this.setState({
       videoDeviceId: DeviceId
     });
@@ -67,6 +71,7 @@ class VideoScreen extends Component {
           {this.state.active ? (
             // <WebCamComponent ref={this.webCamRef} front={this.state.front} />
             <WebCamComponent
+              videoElementId={"videoelement"}
               audiosource={this.state.audioDeviceId}
               videosource={this.state.videoDeviceId}
             />
@@ -78,7 +83,7 @@ class VideoScreen extends Component {
         <ControlDrawer
           cameraActive={this.state.active}
           handleCameraToggle={this.handleCameraToggle}
-          handleCameraSwitch={this.handleCameraSwitch}
+          //handleCameraSwitch={this.handleCameraSwitch}
           handleAudioInputItemSelect={this.handleAudioInputItemSelect}
           handleVideoInputItemSelect={this.handleVideoInputItemSelect}
         />

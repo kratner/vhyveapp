@@ -49,7 +49,7 @@ class WebCamComponent extends Component {
       <WebcamScreenContainer>
         <WebcamScreen
           className="webcamscreen"
-          id="webcamscreen"
+          id={this.props.videoElementId}
           //audio={false}
           //videosource="ad73df458d8a30aed8c537eec886310f70deab646e4046d04f987960163ec3bc"
           audiosource={this.props.audiosource}
