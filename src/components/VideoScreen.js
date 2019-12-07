@@ -126,6 +126,25 @@ class VideoScreen extends Component {
     );
   }
   handleCameraToggle() {
+    this.videoElement = document.getElementById("videoelement");
+    if (this.state.active) {
+      if (window.stream) {
+        window.stream.getTracks().forEach(track => {
+          track.stop();
+        });
+      }
+    } else {
+      navigator.mediaDevices
+        .getUserMedia(this.state.constraints)
+        .then(stream => {
+          this.gotStream(this, stream);
+        });
+      /*
+      this.videoElement.onloadedmetadata = e => {
+        e.currentTarget.play();
+      };
+      */
+    }
     this.setState({
       active: !this.state.active
     });
@@ -186,6 +205,7 @@ class VideoScreen extends Component {
       });
     }
     this.setState({
+      active: true,
       videoDeviceId: DeviceId,
       constraints: {
         /*
@@ -231,15 +251,11 @@ class VideoScreen extends Component {
     return (
       <React.Fragment>
         <VideoScreenContainer className="videoscreen">
-          {this.state.active ? (
-            <VideoElement
-              videoElementId={"videoelement"}
-              audiosource={this.state.audioInputDeviceId}
-              videosource={this.state.videoDeviceId}
-            />
-          ) : (
-            ""
-          )}
+          <VideoElement
+            videoElementId={"videoelement"}
+            audiosource={this.state.audioInputDeviceId}
+            videosource={this.state.videoDeviceId}
+          />
           <FocalPointSVG recording="true" />
         </VideoScreenContainer>
         <ControlDrawer
