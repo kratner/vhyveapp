@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 const MediaSelectorContainer = styled.div`
   font-size: 0.8em;
@@ -21,14 +21,8 @@ const MediaInputTypeLabel = styled.div`
 `;
 const MProperty = styled.span``;
 const MLabel = styled(MProperty)``;
-class MediaInputSelector extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mediaDevices: []
-    };
-  }
-  handleAudioInputItemClick(evt, ItemId) {
+const MediaInputSelector = props => {
+  const handleAudioInputItemClick = (evt, ItemId) => {
     const audiodeviceselectors = document.getElementsByClassName(
       "audiodeviceselector"
     );
@@ -36,9 +30,9 @@ class MediaInputSelector extends Component {
       audiodeviceselectors[i].classList.remove("selected");
     }
     evt.currentTarget.classList.add("selected");
-    this.props.onAudioItemClick(ItemId);
-  }
-  handleVideoInputItemClick(evt, ItemId) {
+    props.onAudioItemClick(ItemId);
+  };
+  const handleVideoInputItemClick = (evt, ItemId) => {
     const videodeviceselectors = document.getElementsByClassName(
       "videodeviceselector"
     );
@@ -46,65 +40,48 @@ class MediaInputSelector extends Component {
       videodeviceselectors[i].classList.remove("selected");
     }
     evt.currentTarget.classList.add("selected");
-    this.props.onVideoItemClick(ItemId);
-  }
-  gotDevices(thisComponent, mediaDevices) {
-    this.setState({
-      mediaDevices: mediaDevices
-    });
-  }
-  componentDidMount() {
-    navigator.mediaDevices.enumerateDevices().then(mediaDevices => {
-      this.gotDevices(this, mediaDevices);
-    });
-  }
-  render() {
-    const AudioInputDeviceList = this.state.mediaDevices
-      .filter(e => e.kind === "audioinput")
-      .map((node, index) => {
-        const cls = (index === 0 ? "selected" : "") + ` audiodeviceselector`;
-        return (
-          <MediaInputItem
-            className={cls}
-            key={index}
-            onClick={evt => {
-              this.handleAudioInputItemClick(evt, node.deviceId);
-            }}
-          >
-            <MLabel>{node.label}</MLabel>
-          </MediaInputItem>
-        );
-      });
-
-    const VideoInputDeviceList = this.state.mediaDevices
-      .filter(e => e.kind === "videoinput")
-      .map((node, index) => {
-        const cls = (index === 0 ? "selected" : "") + ` videodeviceselector`;
-        return (
-          <MediaInputItem
-            className={cls}
-            key={index}
-            onClick={evt => {
-              this.handleVideoInputItemClick(evt, node.deviceId);
-            }}
-          >
-            <MLabel>{node.label}</MLabel>
-          </MediaInputItem>
-        );
-      });
+    props.onVideoItemClick(ItemId);
+  };
+  const AudioInputDeviceList = props.audioInputDevices.map((node, index) => {
+    const cls = (index === 0 ? "selected" : "") + ` audiodeviceselector`;
     return (
-      <InputSelectorContainer>
-        <MediaInputTypeLabel>Select Audio Device</MediaInputTypeLabel>
-        <MicSelectorContainer id="micselectorcontainer">
-          {AudioInputDeviceList}
-        </MicSelectorContainer>
-        <MediaInputTypeLabel>Select Camera</MediaInputTypeLabel>
-        <CameraSelectorContainer id="cameraselectorcontainer">
-          {VideoInputDeviceList}
-        </CameraSelectorContainer>
-      </InputSelectorContainer>
+      <MediaInputItem
+        className={cls}
+        key={index}
+        onClick={evt => {
+          handleAudioInputItemClick(evt, node.deviceId);
+        }}
+      >
+        <MLabel>{node.label}</MLabel>
+      </MediaInputItem>
     );
-  }
-}
+  });
+  const VideoInputDeviceList = props.videoDevices.map((node, index) => {
+    const cls = (index === 0 ? "selected" : "") + ` videodeviceselector`;
+    return (
+      <MediaInputItem
+        className={cls}
+        key={index}
+        onClick={evt => {
+          handleVideoInputItemClick(evt, node.deviceId);
+        }}
+      >
+        <MLabel>{node.label}</MLabel>
+      </MediaInputItem>
+    );
+  });
+  return (
+    <InputSelectorContainer>
+      <MediaInputTypeLabel>Select Audio Device</MediaInputTypeLabel>
+      <MicSelectorContainer id="micselectorcontainer">
+        {AudioInputDeviceList}
+      </MicSelectorContainer>
+      <MediaInputTypeLabel>Select Camera</MediaInputTypeLabel>
+      <CameraSelectorContainer id="cameraselectorcontainer">
+        {VideoInputDeviceList}
+      </CameraSelectorContainer>
+    </InputSelectorContainer>
+  );
+};
 
 export default MediaInputSelector;

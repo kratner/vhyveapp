@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { MdDragHandle } from "react-icons/md";
 import CameraToggle from "./CameraToggle";
 import MediaInputSelector from "./MediaInputSelector";
@@ -32,66 +32,56 @@ const ControlContainer = styled.div`
   justify-content: space-around;
 `;
 
-class ControlDrawer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: true
-    };
-    this.handleToggle = this.handleToggle.bind(this);
-    //this.handleCameraSwitch = this.handleCameraSwitch.bind(this);
-  }
-  handleToggle() {
+const ControlDrawer = props => {
+  const handleToggle = evt => {
     const controlDrawer = document.getElementById("controlcontainer");
-    this.setState({
-      open: !this.state.open
-    });
-    if (this.state.open) {
-      controlDrawer.classList.add("open");
-    } else {
+    if (controlDrawer.classList.contains("open")) {
       controlDrawer.classList.remove("open");
+    } else {
+      controlDrawer.classList.add("open");
     }
-  }
-  handleCameraToggle() {
-    this.props.handleCameraToggle();
-  }
-  /*
-  handleCameraSwitch() {
-    this.props.handleCameraSwitch();
-  }
-  */
-  handleAudioInputItemSelect(thisComponent, DeviceId) {
-    this.props.handleAudioInputItemSelect(DeviceId);
-  }
-  handleVideoInputItemSelect(thisComponent, DeviceId) {
-    this.props.handleVideoInputItemSelect(DeviceId);
-  }
-  render() {
-    return (
-      <ControlDrawerContainer id="controldrawer" className="controldrawer">
-        <DrawerHandle onClick={this.handleToggle} title="Toggle Controls">
-          <DragHandle />
-        </DrawerHandle>
-        <ControlContainer id="controlcontainer">
-          <CameraToggle
-            size="1.5em"
-            active={this.props.cameraActive}
-            onClick={() => {
-              this.handleCameraToggle();
-            }}
-          />
+  };
+  const handleCameraToggle = () => {
+    props.handleCameraToggle();
+  };
+  const handleAudioInputItemSelect = DeviceId => {
+    props.handleAudioInputItemSelect(DeviceId);
+  };
+  const handleVideoInputItemSelect = DeviceId => {
+    props.handleVideoInputItemSelect(DeviceId);
+  };
+
+  return (
+    <ControlDrawerContainer id="controldrawer" className="controldrawer">
+      <DrawerHandle onClick={handleToggle} title="Toggle Controls">
+        <DragHandle />
+      </DrawerHandle>
+      <ControlContainer id="controlcontainer">
+        <CameraToggle
+          size="1.5em"
+          active={props.cameraActive}
+          onClick={() => {
+            handleCameraToggle();
+          }}
+        />
+        {props.hasDevices ? (
           <MediaInputSelector
+            audioInputDevices={props.audioInputDevices}
+            audioOutputDevices={props.audioOutputDevices}
+            videoDevices={props.videoDevices}
             onVideoItemClick={DeviceID => {
-              this.handleVideoInputItemSelect(this, DeviceID);
+              handleVideoInputItemSelect(DeviceID);
             }}
             onAudioItemClick={DeviceID => {
-              this.handleAudioInputItemSelect(this, DeviceID);
+              handleAudioInputItemSelect(DeviceID);
             }}
           />
-        </ControlContainer>
-      </ControlDrawerContainer>
-    );
-  }
-}
+        ) : (
+          ""
+        )}
+      </ControlContainer>
+    </ControlDrawerContainer>
+  );
+};
 
 export default ControlDrawer;
