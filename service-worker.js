@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/vhyveapp/precache-manifest.71749a29cf8504259dc498a2f833f650.js"
+  "/vhyveapp/precache-manifest.6bd26cc9c88650011392b35216e53270.js"
 );
 
 self.addEventListener('message', (event) => {
