@@ -22,7 +22,7 @@ const MediaInputTypeLabel = styled.div`
 const MProperty = styled.span``;
 const MLabel = styled(MProperty)``;
 const MediaInputSelector = props => {
-  const handleAudioInputItemClick = (evt, ItemId) => {
+  const handleAudioInputItemClick = (evt, device) => {
     const audiodeviceselectors = document.getElementsByClassName(
       "audiodeviceselector"
     );
@@ -30,9 +30,9 @@ const MediaInputSelector = props => {
       audiodeviceselectors[i].classList.remove("selected");
     }
     evt.currentTarget.classList.add("selected");
-    props.onAudioItemClick(ItemId);
+    props.onAudioItemClick(device);
   };
-  const handleVideoInputItemClick = (evt, ItemId) => {
+  const handleVideoInputItemClick = (evt, device) => {
     const videodeviceselectors = document.getElementsByClassName(
       "videodeviceselector"
     );
@@ -40,7 +40,7 @@ const MediaInputSelector = props => {
       videodeviceselectors[i].classList.remove("selected");
     }
     evt.currentTarget.classList.add("selected");
-    props.onVideoItemClick(ItemId);
+    props.onVideoItemClick(device);
   };
   const AudioInputDeviceList = props.audioInputDevices.map((node, index) => {
     const cls = (index === 0 ? "selected" : "") + ` audiodeviceselector`;
@@ -49,7 +49,7 @@ const MediaInputSelector = props => {
         className={cls}
         key={index}
         onClick={evt => {
-          handleAudioInputItemClick(evt, node.deviceId);
+          handleAudioInputItemClick(evt, node);
         }}
       >
         <MLabel>{node.label}</MLabel>
@@ -63,7 +63,7 @@ const MediaInputSelector = props => {
         className={cls}
         key={index}
         onClick={evt => {
-          handleVideoInputItemClick(evt, node.deviceId);
+          handleVideoInputItemClick(evt, node);
         }}
       >
         <MLabel>{node.label}</MLabel>

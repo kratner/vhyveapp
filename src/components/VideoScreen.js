@@ -70,7 +70,7 @@ class VideoScreen extends Component {
       audioInputDevices: audioInputDevices,
       audioOutputDevices: audioOutputDevices,
       videoDevices: videoDevices,
-      hasDevices: true,
+      hasDevices: true /*,
       constraints: {
         audio: {
           deviceId: audioInputDevices[0].deviceId
@@ -82,7 +82,7 @@ class VideoScreen extends Component {
             ? { exact: videoDevices[0].deviceId }
             : undefined
         }
-      }
+      } */
     });
   }
 
@@ -117,6 +117,8 @@ class VideoScreen extends Component {
     window.stream = stream; // make stream available to console
     this.videoElement.srcObject = stream;
     // Refresh button list in case labels have become available
+
+    //alert("SrcObject:" + document.querySelector("video").srcObject.id);
   }
   handleError(error) {
     console.log(
@@ -179,14 +181,14 @@ class VideoScreen extends Component {
       })
       .catch(this.handleError);
   }
-  handleAudioOutputItemSelect(DeviceId) {
+  handleAudioOutputItemSelect(device) {
     if (window.stream) {
       window.stream.getTracks().forEach(track => {
         track.stop();
       });
     }
     this.setState({
-      audioOutputDeviceId: DeviceId
+      audioOutputDeviceId: device.deviceId
     });
     navigator.mediaDevices.getUserMedia(this.state.constraints).then(stream => {
       this.gotStream(this, stream);
@@ -198,28 +200,50 @@ class VideoScreen extends Component {
       })
       .catch(this.handleError);
   }
-  handleVideoInputItemSelect(DeviceId) {
+  handleVideoInputItemSelect(device) {
     if (window.stream) {
       window.stream.getTracks().forEach(track => {
         track.stop();
       });
     }
+    this.videoElement.onloadedmetadata = e => {
+      e.currentTarget.play();
+    };
+    //const DeviceIDConstraint = DeviceId ? { exact: DeviceId } : undefined;
+    // const DeviceIDConstraint = device.deviceId;
+    const facingMode =
+      device.label.search("front") === -1 &&
+      !(
+        device.label.search("front") === -1 &&
+        device.label.search("back") === -1
+      )
+        ? "environment"
+        : "user";
+    const DeviceIDConstraint = { facingMode: facingMode };
+    //const DeviceIDConstraint = { exact: facingMode };
     this.setState({
       active: true,
-      videoDeviceId: DeviceId,
+      videoDeviceId: device.deviceId,
       constraints: {
-        /*
         audio: {
           deviceId: this.state.audioInputDeviceId
-            ? { exact: this.state.audioInputDeviceId }
+            ? this.state.audioInputDeviceId
             : undefined
         },
-        */
-        video: {
-          deviceId: DeviceId ? { exact: DeviceId } : undefined
-        }
+        video: DeviceIDConstraint
+        //facingMode: DeviceIDConstraint
       }
     });
+    /*
+    alert(
+      "DeviceID: " +
+        device.deviceId +
+        "\nLabel " +
+        device.label +
+        "\nFacing Mode: " +
+        facingMode
+    );
+    */
     navigator.mediaDevices.getUserMedia(this.state.constraints).then(stream => {
       this.gotStream(this, stream);
     });
@@ -232,7 +256,6 @@ class VideoScreen extends Component {
   }
   componentDidMount() {
     this.videoElement = document.getElementById("videoelement");
-
     this.videoElement.onloadedmetadata = e => {
       e.currentTarget.play();
     };

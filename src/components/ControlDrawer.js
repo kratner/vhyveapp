@@ -44,11 +44,11 @@ const ControlDrawer = props => {
   const handleCameraToggle = () => {
     props.handleCameraToggle();
   };
-  const handleAudioInputItemSelect = DeviceId => {
-    props.handleAudioInputItemSelect(DeviceId);
+  const handleAudioInputItemSelect = device => {
+    props.handleAudioInputItemSelect(device);
   };
-  const handleVideoInputItemSelect = DeviceId => {
-    props.handleVideoInputItemSelect(DeviceId);
+  const handleVideoInputItemSelect = device => {
+    props.handleVideoInputItemSelect(device);
   };
 
   return (
@@ -69,11 +69,11 @@ const ControlDrawer = props => {
             audioInputDevices={props.audioInputDevices}
             audioOutputDevices={props.audioOutputDevices}
             videoDevices={props.videoDevices}
-            onVideoItemClick={DeviceID => {
-              handleVideoInputItemSelect(DeviceID);
+            onVideoItemClick={device => {
+              handleVideoInputItemSelect(device);
             }}
-            onAudioItemClick={DeviceID => {
-              handleAudioInputItemSelect(DeviceID);
+            onAudioItemClick={device => {
+              handleAudioInputItemSelect(device);
             }}
           />
         ) : (
