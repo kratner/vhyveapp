@@ -6,7 +6,23 @@ https://kratner.github.io/vhyveapp/
 
 In vhyveapp project folder, run:
 
+`npm install`
+
+to setup local development environment.
+
+Run:
+
 ### `npm start`
+
+to launch development server.
+
+Run:
+
+`npm test`
+
+to run Jest/Enzyme unit tests.
+
+Run:
 
 ### `npm run deploy`
 

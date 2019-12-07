@@ -205,6 +205,7 @@ class VideoScreen extends Component {
       window.stream.getTracks().forEach(track => {
         track.stop();
       });
+      this.videoElement.srcObject = null;
     }
     this.videoElement.onloadedmetadata = e => {
       e.currentTarget.play();
@@ -247,12 +248,14 @@ class VideoScreen extends Component {
     navigator.mediaDevices.getUserMedia(this.state.constraints).then(stream => {
       this.gotStream(this, stream);
     });
+    /*
     navigator.mediaDevices
       .enumerateDevices()
       .then(devices => {
         this.gotDevices(this, devices);
       })
       .catch(this.handleError);
+      */
   }
   componentDidMount() {
     this.videoElement = document.getElementById("videoelement");
