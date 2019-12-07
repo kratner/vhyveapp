@@ -53,7 +53,7 @@ class VideoScreen extends Component {
     const audioInputDevices = [];
     const audioOutputDevices = [];
     const videoDevices = [];
-
+    const videoElement = document.getElementById("videoelement");
     const concatDeviceId = arr => {
       return arr.map(e => e.deviceId).join("");
     };
@@ -86,9 +86,37 @@ class VideoScreen extends Component {
       hasDevices: true
     });
   }
+
+  // Attach audio output device to video element using device/sink ID.
+  attachSinkId(element, sinkId) {
+    if (typeof element.sinkId !== "undefined") {
+      element
+        .setSinkId(sinkId)
+        .then(() => {
+          console.log(`Success, audio output device attached: ${sinkId}`);
+        })
+        .catch(error => {
+          let errorMessage = error;
+          if (error.name === "SecurityError") {
+            errorMessage = `You need to use HTTPS for selecting audio output device: ${error}`;
+          }
+          console.error(errorMessage);
+          // Jump back to first output device in the list as it's the default.
+          // TODO:
+          // SET MediaInputSelector audio output selection to default selection
+          // audioOutputSelect.selectedIndex = 0;
+        });
+    } else {
+      console.warn("Browser does not support output device selection.");
+    }
+  }
+  changeAudioDestination() {
+    const audioDestination = this.state.audioOutputDeviceId.value;
+    this.attachSinkId(this.videoElement, audioDestination);
+  }
   gotStream(thisRef, stream) {
     window.stream = stream; // make stream available to console
-    document.getElementById("videoelement").srcObject = stream;
+    this.videoElement.srcObject = stream;
     // Refresh button list in case labels have become available
   }
   handleError(error) {
