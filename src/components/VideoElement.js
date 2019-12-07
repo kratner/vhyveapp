@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-
+import React from "react";
 import styled from "styled-components";
 
 const WebcamScreenContainer = styled.div`
@@ -9,9 +8,9 @@ const WebcamScreenContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
 `;
-const WebcamScreen = styled.video`
+const VideoCanvas = styled.video`
   /* Make video to at least 100% wide and tall */
   min-width: 100%;
   min-height: 100%;
@@ -25,16 +24,19 @@ const WebcamScreen = styled.video`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  z-index: 3;
 `;
 const VideoElement = props => {
   return (
     <WebcamScreenContainer>
-      <WebcamScreen
-        className="webcamscreen"
+      <VideoCanvas
+        className="videocanvas"
         id={props.videoElementId}
         playsinline
         autoplay
-      ></WebcamScreen>
+        srcobject
+      ></VideoCanvas>
     </WebcamScreenContainer>
   );
 };

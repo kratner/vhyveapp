@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import FocalPoint from "./FocalPoint";
-import WebCamComponent from "./WebCamComponent";
+//import WebCamComponent from "./WebCamComponent";
+import VideoElement from "./VideoElement";
 import ControlDrawer from "./ControlDrawer";
 import styled from "styled-components";
 
@@ -13,6 +14,7 @@ const VideoScreenContainer = styled.div`
   background-image: url(https://raw.githubusercontent.com/kratner/vhyveapp/master/public/20191117_163741.jpg);
   background-size: cover;
   background-position: center;
+  z-index: 1;
 `;
 
 const FocalPointSVG = styled(FocalPoint)``;
@@ -25,9 +27,7 @@ class VideoScreen extends Component {
         audio: {
           deviceId: undefined
         },
-        video: {
-          deviceId: undefined
-        }
+        video: true
       },
       audioInputDeviceId: "",
       audioOutputDeviceId: "",
@@ -37,11 +37,9 @@ class VideoScreen extends Component {
       videoDevices: [],
       active: true,
       front: true,
-      controlDrawerKey: "init",
       hasDevices: false
     };
     this.handleCameraToggle = this.handleCameraToggle.bind(this);
-    //this.handleCameraSwitch = this.handleCameraSwitch.bind(this);
     this.handleAudioInputItemSelect = this.handleAudioInputItemSelect.bind(
       this
     );
@@ -53,14 +51,8 @@ class VideoScreen extends Component {
     const audioInputDevices = [];
     const audioOutputDevices = [];
     const videoDevices = [];
-    const videoElement = document.getElementById("videoelement");
-    const concatDeviceId = arr => {
-      return arr.map(e => e.deviceId).join("");
-    };
-    let controlDrawerKey = "";
     for (let i = 0; i !== deviceInfos.length; ++i) {
       const deviceInfo = deviceInfos[i];
-      //const option = document.createElement("option");
       switch (deviceInfo.kind) {
         case "audioinput":
           audioInputDevices.push(deviceInfo);
@@ -74,16 +66,23 @@ class VideoScreen extends Component {
         default:
       }
     }
-    controlDrawerKey =
-      concatDeviceId(audioInputDevices) +
-      concatDeviceId(audioOutputDevices) +
-      concatDeviceId(videoDevices);
     thisRef.setState({
       audioInputDevices: audioInputDevices,
       audioOutputDevices: audioOutputDevices,
       videoDevices: videoDevices,
-      controlDrawerKey: controlDrawerKey,
-      hasDevices: true
+      hasDevices: true,
+      constraints: {
+        audio: {
+          deviceId: audioInputDevices[0].deviceId
+            ? { exact: audioInputDevices[0].deviceId }
+            : undefined
+        },
+        video: {
+          deviceId: videoDevices[0].deviceId
+            ? { exact: videoDevices[0].deviceId }
+            : undefined
+        }
+      }
     });
   }
 
@@ -141,15 +140,14 @@ class VideoScreen extends Component {
       audioInputDeviceId: DeviceId,
       constraints: {
         audio: {
-          deviceId: this.state.audioInputDeviceId
-            ? { exact: this.state.audioInputDeviceId }
-            : undefined
-        },
+          deviceId: DeviceId ? { exact: DeviceId } : undefined
+        } /*,
         video: {
           deviceId: this.state.videoDeviceId
             ? { exact: this.state.videoDeviceId }
             : undefined
         }
+        */
       }
     });
     navigator.mediaDevices.getUserMedia(this.state.constraints).then(stream => {
@@ -190,15 +188,15 @@ class VideoScreen extends Component {
     this.setState({
       videoDeviceId: DeviceId,
       constraints: {
+        /*
         audio: {
           deviceId: this.state.audioInputDeviceId
             ? { exact: this.state.audioInputDeviceId }
             : undefined
         },
+        */
         video: {
-          deviceId: this.state.videoDeviceId
-            ? { exact: this.state.videoDeviceId }
-            : undefined
+          deviceId: DeviceId ? { exact: DeviceId } : undefined
         }
       }
     });
@@ -213,6 +211,11 @@ class VideoScreen extends Component {
       .catch(this.handleError);
   }
   componentDidMount() {
+    this.videoElement = document.getElementById("videoelement");
+
+    this.videoElement.onloadedmetadata = e => {
+      e.currentTarget.play();
+    };
     navigator.mediaDevices.getUserMedia(this.state.constraints).then(stream => {
       this.gotStream(this, stream);
     });
@@ -229,7 +232,7 @@ class VideoScreen extends Component {
       <React.Fragment>
         <VideoScreenContainer className="videoscreen">
           {this.state.active ? (
-            <WebCamComponent
+            <VideoElement
               videoElementId={"videoelement"}
               audiosource={this.state.audioInputDeviceId}
               videosource={this.state.videoDeviceId}
@@ -240,7 +243,6 @@ class VideoScreen extends Component {
           <FocalPointSVG recording="true" />
         </VideoScreenContainer>
         <ControlDrawer
-          key={this.state.controlDrawerKey}
           cameraActive={this.state.active}
           handleCameraToggle={this.handleCameraToggle}
           handleAudioInputItemSelect={this.handleAudioInputItemSelect}
