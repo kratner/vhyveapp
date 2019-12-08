@@ -4,6 +4,8 @@ import FocalPoint from "./FocalPoint";
 import VideoElement from "./VideoElement";
 import ControlDrawer from "./ControlDrawer";
 import styled from "styled-components";
+import OLMapElement from "./OLMapElement";
+import MessageBar from "./MessageBar";
 
 const VideoScreenContainer = styled.div`
   height: 100vh;
@@ -29,6 +31,7 @@ class VideoScreen extends Component {
         },
         video: true
       },
+      locationRefreshRate: 1000,
       audioInputDeviceId: "",
       audioOutputDeviceId: "",
       videoDeviceId: "",
@@ -269,7 +272,19 @@ class VideoScreen extends Component {
       mapwindow.classList.add("active");
     }
   }
+  handleGetLocation(position, thisRef) {
+    this.showMessage(
+      "Latitude: " +
+        position.coords.latitude +
+        " Longitude: " +
+        position.coords.longitude
+    );
+  }
+  showMessage(message) {
+    this.messageBar.innerHTML = message;
+  }
   componentDidMount() {
+    this.messageBar = document.getElementById("messagecontainer");
     this.videoElement = document.getElementById("videoelement");
     this.videoElement.onloadedmetadata = e => {
       e.currentTarget.play();
@@ -296,6 +311,12 @@ class VideoScreen extends Component {
           />
           <FocalPointSVG recording="true" />
         </VideoScreenContainer>
+        <OLMapElement
+          handleGetLocation={position => {
+            this.handleGetLocation(position, this);
+          }}
+          locationRefreshRate={this.state.locationRefreshRate}
+        />
         <ControlDrawer
           cameraActive={this.state.active}
           handleCameraToggle={this.handleCameraToggle}
@@ -307,6 +328,7 @@ class VideoScreen extends Component {
           hasDevices={this.state.hasDevices}
           handleMapButtonClick={this.handleMapButtonClick}
         />
+        <MessageBar id="messagecontainer" />
       </React.Fragment>
     );
   }

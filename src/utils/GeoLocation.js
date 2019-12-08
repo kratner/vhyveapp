@@ -1,15 +1,15 @@
 export default class GeoLocation {
-  getLocation(callback) {
+  getLocation(callback, context) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        this.onGetLocation(position, callback);
+        this.onGetLocation(position, callback, context);
       });
     } else {
       this.onGetLocation("not supported");
     }
   }
-  onGetLocation(position, callback) {
-    callback(position);
+  onGetLocation(position, callback, context) {
+    callback(position, context);
   }
 }
 

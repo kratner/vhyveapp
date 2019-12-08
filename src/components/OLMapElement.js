@@ -35,8 +35,8 @@ class OLMapElement extends Component {
     window.addEventListener("resize", debounce(this.renderMap, 100));
   }
 
-  handleGetLocation(position) {
-    console.log(position);
+  handleGetLocation(position, thisRef) {
+    thisRef.props.handleGetLocation(position);
   }
   renderMap() {
     document.getElementById("mapcanvas").innerHTML = "";
@@ -60,7 +60,11 @@ class OLMapElement extends Component {
 
   componentDidMount() {
     this.geo = new GeoLocation();
-    this.geo.getLocation(this.handleGetLocation);
+    this.geo.getLocation(this.handleGetLocation, this);
+    console.log("locationRefreshRate: " + this.props.locationRefreshRate);
+    setInterval(() => {
+      this.geo.getLocation(this.handleGetLocation, this);
+    }, this.props.locationRefreshRate);
     this.renderMap();
     this.mapwindow = document.getElementById("mapwindow");
   }
