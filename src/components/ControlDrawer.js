@@ -69,7 +69,7 @@ const ControlDrawer = props => {
             handleCameraToggle();
           }}
         />
-        <MapIconButton onClick={handleMapButtonClick} />
+        <MapIconButton title="Toggle Map" onClick={handleMapButtonClick} />
         {props.hasDevices ? (
           <MediaInputSelector
             audioInputDevices={props.audioInputDevices}

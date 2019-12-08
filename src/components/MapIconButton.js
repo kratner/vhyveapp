@@ -11,7 +11,7 @@ const MapIcon = styled(FaMap)`
 `;
 
 const MapIconButton = props => {
-  return <MapIcon onClick={props.onClick} />;
+  return <MapIcon title={props.title} onClick={props.onClick} />;
 };
 
 export default MapIconButton;

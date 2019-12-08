@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 const MediaSelectorContainer = styled.div`
-  font-size: 0.8em;
+  font-size: 0.5em;
 `;
 const MicSelectorContainer = styled(MediaSelectorContainer)``;
 const CameraSelectorContainer = styled(MediaSelectorContainer)``;
 const InputSelectorContainer = styled.div``;
 const MediaInputItem = styled.div`
+  height: 2.5em;
+  display: flex;
+  align-items: center;
   cursor: pointer;
+  transition: 0.25s;
   &:hover {
     background-color: #ffffff25;
   }
