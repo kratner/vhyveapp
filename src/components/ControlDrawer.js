@@ -4,6 +4,7 @@ import CameraToggle from "./CameraToggle";
 import UserIcon from "./UserIcon";
 import MediaInputSelector from "./MediaInputSelector";
 import styled from "styled-components";
+import MapIconButton from "./MapIconButton";
 
 const ControlDrawerContainer = styled.div`
   position: absolute;
@@ -26,7 +27,6 @@ const DrawerHandle = styled.div`
     background-color: #ffffff50;
   }
 `;
-
 const ControlContainer = styled.div`
   display: flex;
   align-items: center;
@@ -51,6 +51,9 @@ const ControlDrawer = props => {
   const handleVideoInputItemSelect = device => {
     props.handleVideoInputItemSelect(device);
   };
+  const handleMapButtonClick = () => {
+    props.handleMapButtonClick();
+  };
 
   return (
     <ControlDrawerContainer id="controldrawer" className="controldrawer">
@@ -66,6 +69,7 @@ const ControlDrawer = props => {
             handleCameraToggle();
           }}
         />
+        <MapIconButton onClick={handleMapButtonClick} />
         {props.hasDevices ? (
           <MediaInputSelector
             audioInputDevices={props.audioInputDevices}

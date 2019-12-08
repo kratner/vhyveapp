@@ -200,6 +200,10 @@ class VideoScreen extends Component {
       })
       .catch(this.handleError);
   }
+  /**
+   *
+   * @param {*} device
+   */
   handleVideoInputItemSelect(device) {
     if (window.stream) {
       window.stream.getTracks().forEach(track => {
@@ -257,6 +261,14 @@ class VideoScreen extends Component {
       .catch(this.handleError);
       */
   }
+  handleMapButtonClick() {
+    const mapwindow = document.getElementById("mapwindow");
+    if (mapwindow.classList.contains("active")) {
+      mapwindow.classList.remove("active");
+    } else {
+      mapwindow.classList.add("active");
+    }
+  }
   componentDidMount() {
     this.videoElement = document.getElementById("videoelement");
     this.videoElement.onloadedmetadata = e => {
@@ -293,6 +305,7 @@ class VideoScreen extends Component {
           audioOutputDevices={this.state.audioOutputDevices}
           videoDevices={this.state.videoDevices}
           hasDevices={this.state.hasDevices}
+          handleMapButtonClick={this.handleMapButtonClick}
         />
       </React.Fragment>
     );
