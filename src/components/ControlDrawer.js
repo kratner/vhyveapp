@@ -1,6 +1,7 @@
 import React from "react";
 import { MdDragHandle } from "react-icons/md";
 import CameraToggle from "./CameraToggle";
+import UserIcon from "./UserIcon";
 import MediaInputSelector from "./MediaInputSelector";
 import styled from "styled-components";
 
@@ -57,6 +58,7 @@ const ControlDrawer = props => {
         <DragHandle />
       </DrawerHandle>
       <ControlContainer id="controlcontainer">
+        <UserIcon />
         <CameraToggle
           size="1.5em"
           active={props.cameraActive}
