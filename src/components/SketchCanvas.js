@@ -1,18 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { GoPencil } from "react-icons/go";
+import { GoPencil, GoCircleSlash } from "react-icons/go";
 import styled from "styled-components";
 import simplify from "simplify-js";
 //const _url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Cephalometric_radiograph.JPG/600px-Cephalometric_radiograph.JPG";
 
 const PencilIcon = styled(GoPencil)`
   color: #ffffff;
-  z-index: 9;
+  z-index: 10;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   left: 1em;
   cursor: pointer;
+  &:hover {
+    color: #fdde6b;
+  }
+`;
+
+const PencilIconSlash = styled(GoCircleSlash)`
+  color: #ffffff;
+  z-index: 9;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  left: 0.25em;
+  cursor: pointe;
+  font-size: 2em;
+  opacity: 0;
   &:hover {
     color: #fdde6b;
   }
@@ -35,6 +50,8 @@ class DrawCanvas extends React.Component {
   handleCanvasToggle(thisRef) {
     this.refs.canvas.style.opacity =
       this.refs.canvas.style.opacity === "0" ? "1" : "0";
+    this.penciliconslash.style.opacity =
+      this.refs.canvas.style.opacity === "0" ? "0.5" : "0";
   }
 
   componentDidMount() {
@@ -42,6 +59,7 @@ class DrawCanvas extends React.Component {
     const rect = node.getBoundingClientRect();
     const { left, top } = rect;
     this.setState({ top, left });
+    this.penciliconslash = document.getElementById("penciliconslash");
   }
 
   handleMouseDown() {
@@ -179,7 +197,9 @@ class DrawCanvas extends React.Component {
         <PencilIcon
           id="pencilicon"
           onClick={() => this.handleCanvasToggle(this)}
+          title="Toggle Drawing Canvas"
         />
+        <PencilIconSlash id="penciliconslash" />
       </div>
     );
   }
