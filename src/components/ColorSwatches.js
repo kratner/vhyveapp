@@ -37,7 +37,9 @@ const ColorSwatches = props => {
           margin: margins,
           cursor: "pointer"
         }}
-        onClick={() => props.onClick(_color)}
+        onClick={() => {
+          props.onSwatchClick(_color);
+        }}
         onMouseOver={e => {
           e.currentTarget.style.border = "1px solid rgb(255, 255, 255)";
         }}

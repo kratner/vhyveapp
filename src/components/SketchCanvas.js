@@ -86,6 +86,10 @@ class DrawCanvas extends React.Component {
       this.refs.canvas.style.opacity === "0" ? "0.5" : "0";
   }
 
+  handleColorSwatchClick(thisRef, _color) {
+    console.log(_color);
+  }
+
   componentDidMount() {
     const node = ReactDOM.findDOMNode(this.refs.canvas);
     const rect = node.getBoundingClientRect();
@@ -237,7 +241,9 @@ class DrawCanvas extends React.Component {
             size="1em"
             colors={["red", "green", "blue"]}
             spacing=".25em"
-            onClick={this.handleClick}
+            onSwatchClick={_color => {
+              this.handleColorSwatchClick(this, _color);
+            }}
           />
           <PencilIconContainer>
             <PencilIconSlash id="penciliconslash" />
