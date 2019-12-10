@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { GoPencil, GoCircleSlash, GoTrashcan } from "react-icons/go";
+import ColorSwatches from "./ColorSwatches";
 import styled from "styled-components";
 import simplify from "simplify-js";
 //const _url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Cephalometric_radiograph.JPG/600px-Cephalometric_radiograph.JPG";
@@ -17,6 +18,7 @@ const CanvasToolContainer = styled.div`
 const CanvasToolIconContainer = styled.div`
   margin: 1em 0;
 `;
+//const ColorSwatchContainer = styled(CanvasToolIconContainer)``;
 const PencilIconContainer = styled(CanvasToolIconContainer)``;
 const TrashIconContainer = styled(CanvasToolIconContainer)``;
 const TrashIcon = styled(GoTrashcan)`
@@ -56,6 +58,8 @@ class DrawCanvas extends React.Component {
     super(props);
     this.state = {
       paths: [[]],
+      pathFills: [],
+      fillColors: ["red", "blue", "green", "yellow"],
       isDrawing: false,
       top: 0,
       left: 0,
@@ -227,6 +231,14 @@ class DrawCanvas extends React.Component {
           })}
         </svg>
         <CanvasToolContainer>
+          <ColorSwatches
+            layout="vertical"
+            shape="circle"
+            size="1em"
+            colors={["red", "green", "blue"]}
+            spacing=".25em"
+            onClick={this.handleClick}
+          />
           <PencilIconContainer>
             <PencilIconSlash id="penciliconslash" />
             <PencilIcon
