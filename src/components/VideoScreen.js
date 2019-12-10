@@ -6,7 +6,17 @@ import ControlDrawer from "./ControlDrawer";
 import styled from "styled-components";
 import OLMapElement from "./OLMapElement";
 import MessageBar from "./MessageBar";
+import DrawCanvas from "./SketchCanvas";
 import { FaCompass } from "react-icons/fa";
+
+const DrawCanvasContainer = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 8;
+`;
 
 const VideoScreenContainer = styled.div`
   height: 100vh;
@@ -28,7 +38,9 @@ const RotatingIconContainer = styled.div`
   color: #fff;
   top: 1.5em;
   left: 50%;
-  transition: 0.5s;
+  height: 1em;
+  width: 1em;
+  transition: 0.25s;
   transform: translateX(-50%);
   transform-origin: 50% 50%;
   @media only screen and (orientation: landscape) {
@@ -36,6 +48,12 @@ const RotatingIconContainer = styled.div`
     right: 5em;
     left: auto;
   }
+`;
+
+const RotatingIcon = styled(FaCompass)`
+  transform: translate(-0%, -0%);
+  left: 50%;
+  top: 50%;
 `;
 
 class VideoScreen extends Component {
@@ -67,6 +85,7 @@ class VideoScreen extends Component {
       this
     );
     this.rotatingUserIcon = React.createRef();
+    this.sketchCanvas = React.createRef();
   }
   gotDevices(thisRef, deviceInfos) {
     const audioInputDevices = [];
@@ -291,16 +310,16 @@ class VideoScreen extends Component {
     }
   }
   handleGetLocation(position, thisRef) {
-    this.showMessage(0, "Latitude: " + position.coords.latitude);
-    this.showMessage(1, " Longitude: " + position.coords.longitude);
+    thisRef.showMessage(0, "Latitude: " + position.coords.latitude);
+    thisRef.showMessage(1, " Longitude: " + position.coords.longitude);
   }
   handleOrientation(event, thisRef) {
     //event.alpha COMPASS
     //event.beta
     //event.gamma
-    this.showMessage(2, "Alpha: " + event.alpha);
-    this.showMessage(3, "Beta: " + event.beta);
-    this.showMessage(4, "Gamma: " + event.gamma);
+    thisRef.showMessage(2, "Alpha: " + event.alpha);
+    thisRef.showMessage(3, "Beta: " + event.beta);
+    thisRef.showMessage(4, "Gamma: " + event.gamma);
     this.rotatingUserIcon.current.style.transform =
       "rotate(" + event.alpha + "deg)";
   }
@@ -339,6 +358,7 @@ class VideoScreen extends Component {
     this.videoElement.onloadedmetadata = e => {
       e.currentTarget.play();
     };
+    this.rotatingIcon = document.getElementById("rotatingicon");
     navigator.mediaDevices.getUserMedia(this.state.constraints).then(stream => {
       this.gotStream(this, stream);
     });
@@ -374,8 +394,20 @@ class VideoScreen extends Component {
           id="rotatingusericon"
           ref={this.rotatingUserIcon}
         >
-          <FaCompass />
+          <RotatingIcon id="rotatingicon" />
         </RotatingIconContainer>
+        <DrawCanvasContainer id="sketchcanvas">
+          <DrawCanvas
+            style={{
+              border: "1px solid black",
+              cursor: "crosshair",
+              width: "100vw",
+              height: "100vh"
+            }}
+            width="100%"
+            height="100%"
+          />
+        </DrawCanvasContainer>
         <ControlDrawer
           cameraActive={this.state.active}
           handleCameraToggle={this.handleCameraToggle}

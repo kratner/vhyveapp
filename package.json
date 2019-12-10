@@ -32,6 +32,7 @@
     ]
   },
   "devDependencies": {
+    "@psychobolt/react-paperjs": "0.0.56",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
@@ -42,6 +43,7 @@
     "react-icons": "^3.8.0",
     "react-openlayers": "^0.2.1",
     "react-webcam": "^4.0.0",
+    "simplify-js": "^1.2.3",
     "styled-components": "^4.4.1"
   }
 }
