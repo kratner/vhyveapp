@@ -6,7 +6,7 @@ import ControlDrawer from "./ControlDrawer";
 import styled from "styled-components";
 import OLMapElement from "./OLMapElement";
 import MessageBar from "./MessageBar";
-import { GoDeviceCameraVideo } from "react-icons/go";
+import { FaCompass } from "react-icons/fa";
 
 const VideoScreenContainer = styled.div`
   height: 100vh;
@@ -32,7 +32,7 @@ const RotatingIconContainer = styled.div`
   transform: translateX(-50%);
   transform-origin: 50% 50%;
   @media only screen and (orientation: landscape) {
-    top: 0.8em;
+    top: 0.6em;
     right: 5em;
     left: auto;
   }
@@ -374,7 +374,7 @@ class VideoScreen extends Component {
           id="rotatingusericon"
           ref={this.rotatingUserIcon}
         >
-          <GoDeviceCameraVideo />
+          <FaCompass />
         </RotatingIconContainer>
         <ControlDrawer
           cameraActive={this.state.active}
