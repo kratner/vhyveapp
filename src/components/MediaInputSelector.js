@@ -12,6 +12,7 @@ const MediaInputItem = styled.div`
   align-items: center;
   cursor: pointer;
   transition: 0.25s;
+  padding-left: 0.5em;
   &:hover {
     background-color: #ffffff25;
   }
@@ -22,6 +23,7 @@ const MediaInputItem = styled.div`
 const MediaInputTypeLabel = styled.div`
   font-size: 0.8em;
   font-weight: bold;
+  padding: 0.25em 0.15em;
 `;
 const MProperty = styled.span``;
 const MLabel = styled(MProperty)``;

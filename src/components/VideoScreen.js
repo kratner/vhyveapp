@@ -6,6 +6,7 @@ import ControlDrawer from "./ControlDrawer";
 import styled from "styled-components";
 import OLMapElement from "./OLMapElement";
 import MessageBar from "./MessageBar";
+import { GoDeviceCameraVideo } from "react-icons/go";
 
 const VideoScreenContainer = styled.div`
   height: 100vh;
@@ -20,6 +21,22 @@ const VideoScreenContainer = styled.div`
 `;
 
 const FocalPointSVG = styled(FocalPoint)``;
+
+const RotatingIconContainer = styled.div`
+  z-index: 15;
+  position: absolute;
+  color: #fff;
+  top: 1.5em;
+  left: 50%;
+  transition: 0.5s;
+  transform: translateX(-50%);
+  transform-origin: 50% 50%;
+  @media only screen and (orientation: landscape) {
+    top: 0.8em;
+    right: 5em;
+    left: auto;
+  }
+`;
 
 class VideoScreen extends Component {
   constructor(props) {
@@ -49,6 +66,7 @@ class VideoScreen extends Component {
     this.handleVideoInputItemSelect = this.handleVideoInputItemSelect.bind(
       this
     );
+    this.rotatingUserIcon = React.createRef();
   }
   gotDevices(thisRef, deviceInfos) {
     const audioInputDevices = [];
@@ -273,18 +291,50 @@ class VideoScreen extends Component {
     }
   }
   handleGetLocation(position, thisRef) {
-    this.showMessage(
-      "Latitude: " +
-        position.coords.latitude +
-        " Longitude: " +
-        position.coords.longitude
-    );
+    this.showMessage(0, "Latitude: " + position.coords.latitude);
+    this.showMessage(1, " Longitude: " + position.coords.longitude);
   }
-  showMessage(message) {
-    this.messageBar.innerHTML = message;
+  handleOrientation(event, thisRef) {
+    //event.alpha COMPASS
+    //event.beta
+    //event.gamma
+    this.showMessage(2, "Alpha: " + event.alpha);
+    this.showMessage(3, "Beta: " + event.beta);
+    this.showMessage(4, "Gamma: " + event.gamma);
+    this.rotatingUserIcon.current.style.transform =
+      "rotate(" + event.alpha + "deg)";
+  }
+  showMessage(i, message) {
+    switch (i) {
+      case -1:
+        this.messageBarMessage1.innerHTML = "";
+        this.messageBarMessage2.innerHTML = "";
+        this.messageBarMessage3.innerHTML = "";
+        break;
+      case 0:
+        this.messageBarMessage1.innerHTML = message;
+        break;
+      case 1:
+        this.messageBarMessage2.innerHTML = message;
+        break;
+      case 2:
+        this.messageBarMessage3.innerHTML = message;
+        break;
+      case 3:
+        this.messageBarMessage4.innerHTML = message;
+        break;
+      case 4:
+        this.messageBarMessage5.innerHTML = message;
+        break;
+      default:
+    }
   }
   componentDidMount() {
-    this.messageBar = document.getElementById("messagecontainer");
+    this.messageBarMessage1 = document.getElementById("message-m1");
+    this.messageBarMessage2 = document.getElementById("message-m2");
+    this.messageBarMessage3 = document.getElementById("message-m3");
+    this.messageBarMessage4 = document.getElementById("message-m4");
+    this.messageBarMessage5 = document.getElementById("message-m5");
     this.videoElement = document.getElementById("videoelement");
     this.videoElement.onloadedmetadata = e => {
       e.currentTarget.play();
@@ -315,8 +365,17 @@ class VideoScreen extends Component {
           handleGetLocation={position => {
             this.handleGetLocation(position, this);
           }}
+          handleOrientation={event => {
+            this.handleOrientation(event, this);
+          }}
           locationRefreshRate={this.state.locationRefreshRate}
         />
+        <RotatingIconContainer
+          id="rotatingusericon"
+          ref={this.rotatingUserIcon}
+        >
+          <GoDeviceCameraVideo />
+        </RotatingIconContainer>
         <ControlDrawer
           cameraActive={this.state.active}
           handleCameraToggle={this.handleCameraToggle}

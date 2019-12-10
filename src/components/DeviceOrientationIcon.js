@@ -5,7 +5,7 @@ import styled from "styled-components";
 const DeviceIconContainer = styled.div`
   position: absolute;
   top: 0.5em;
-  right: 0.5em;
+  right: 0.25em;
   z-index: 15;
   color: #fff;
   font-size: 2em;
@@ -13,6 +13,7 @@ const DeviceIconContainer = styled.div`
   @media only screen and (orientation: landscape) {
     top: 0;
     transform: rotate(90deg);
+    right: 1em;
   }
 `;
 const DeviceOrientationIcon = props => {

@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import ol from "openlayers";
 import "ol/ol.css";
 import GeoLocation from "../utils/GeoLocation";
+import DeviceOrientation from "../utils/DeviceOrientation";
 import { debounce } from "../utils/Debounce";
 import styled from "styled-components";
 
@@ -32,11 +33,40 @@ class OLMapElement extends Component {
 
     this.map = {};
     this.geo = {};
+
+    this.state = {
+      GeoLocationOptions: {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: 0
+      }
+    };
+
     window.addEventListener("resize", debounce(this.renderMap, 100));
+    navigator.geolocation.watchPosition(
+      position => {
+        this.handleGetLocation(position, this);
+      },
+      this.error,
+      this.state.GeoLocationOptions
+    );
+    window.addEventListener(
+      "deviceorientation",
+      event => {
+        this.handleOrientation(event, this);
+      },
+      true
+    );
   }
 
+  error(err) {
+    console.warn("ERROR(" + err.code + "): " + err.message);
+  }
   handleGetLocation(position, thisRef) {
     thisRef.props.handleGetLocation(position);
+  }
+  handleOrientation(event, thisRef) {
+    thisRef.props.handleOrientation(event);
   }
   renderMap() {
     document.getElementById("mapcanvas").innerHTML = "";
@@ -61,10 +91,13 @@ class OLMapElement extends Component {
   componentDidMount() {
     this.geo = new GeoLocation();
     this.geo.getLocation(this.handleGetLocation, this);
-    console.log("locationRefreshRate: " + this.props.locationRefreshRate);
+    this.orientation = new DeviceOrientation();
+    this.orientation.getOrientation(this.handleOrientation, this);
+    /*
     setInterval(() => {
       this.geo.getLocation(this.handleGetLocation, this);
     }, this.props.locationRefreshRate);
+    */
     this.renderMap();
     this.mapwindow = document.getElementById("mapwindow");
   }
