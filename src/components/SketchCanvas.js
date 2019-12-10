@@ -1,31 +1,49 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { GoPencil, GoCircleSlash } from "react-icons/go";
+import { GoPencil, GoCircleSlash, GoTrashcan } from "react-icons/go";
 import styled from "styled-components";
 import simplify from "simplify-js";
 //const _url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Cephalometric_radiograph.JPG/600px-Cephalometric_radiograph.JPG";
 
-const PencilIcon = styled(GoPencil)`
-  color: #ffffff;
+const CanvasToolContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   z-index: 10;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   left: 1em;
+`;
+const CanvasToolIconContainer = styled.div`
+  margin: 1em 0;
+`;
+const PencilIconContainer = styled(CanvasToolIconContainer)``;
+const TrashIconContainer = styled(CanvasToolIconContainer)``;
+const TrashIcon = styled(GoTrashcan)`
+  color: #ffffff;
   cursor: pointer;
+  opacity: 0.5;
+  &:hover {
+    color: #fdde6b;
+  }
+`;
+const PencilIcon = styled(GoPencil)`
+  color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  left: -2em;
   &:hover {
     color: #fdde6b;
   }
 `;
 
 const PencilIconSlash = styled(GoCircleSlash)`
+  position: relative;
+  left: -0.25em;
+  top: 0.25em;
+  transform: rotate(90deg);
   color: #ffffff;
-  z-index: 9;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) rotate(90deg);
-  left: 0.25em;
-  cursor: pointe;
+  cursor: pointer;
   font-size: 2em;
   opacity: 0;
   &:hover {
@@ -47,6 +65,16 @@ class DrawCanvas extends React.Component {
     };
   }
 
+  handleTrashClick(thisRef) {
+    if (this.state.paths.length > 1) {
+      this.setState({
+        paths: [[]],
+        isDrawing: false
+      });
+      this.trashicon.style.opacity = "0.5";
+    }
+  }
+
   handleCanvasToggle(thisRef) {
     this.refs.canvas.style.opacity =
       this.refs.canvas.style.opacity === "0" ? "1" : "0";
@@ -60,6 +88,8 @@ class DrawCanvas extends React.Component {
     const { left, top } = rect;
     this.setState({ top, left });
     this.penciliconslash = document.getElementById("penciliconslash");
+    this.trashicon = document.getElementById("trashicon");
+    this.refs.canvas.style.transition = ".25s";
   }
 
   handleMouseDown() {
@@ -88,6 +118,7 @@ class DrawCanvas extends React.Component {
       const activePath = paths[paths.length - 1];
       activePath.push({ x, y });
       this.setState({ paths });
+      this.trashicon.style.opacity = "1";
     }
   }
 
@@ -99,6 +130,7 @@ class DrawCanvas extends React.Component {
       const activePath = paths[paths.length - 1];
       activePath.push({ x, y });
       this.setState({ paths });
+      this.trashicon.style.opacity = "1";
     }
   }
 
@@ -194,12 +226,23 @@ class DrawCanvas extends React.Component {
             );
           })}
         </svg>
-        <PencilIcon
-          id="pencilicon"
-          onClick={() => this.handleCanvasToggle(this)}
-          title="Toggle Drawing Canvas"
-        />
-        <PencilIconSlash id="penciliconslash" />
+        <CanvasToolContainer>
+          <PencilIconContainer>
+            <PencilIconSlash id="penciliconslash" />
+            <PencilIcon
+              id="pencilicon"
+              onClick={() => this.handleCanvasToggle(this)}
+              title="Toggle Drawing Canvas"
+            />
+          </PencilIconContainer>
+          <TrashIconContainer>
+            <TrashIcon
+              id="trashicon"
+              onClick={() => this.handleTrashClick(this)}
+              title="Clear Canvas"
+            />
+          </TrashIconContainer>
+        </CanvasToolContainer>
       </div>
     );
   }
