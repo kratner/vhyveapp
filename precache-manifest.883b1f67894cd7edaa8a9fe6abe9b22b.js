@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "91cb35b3a77c16e550bb64468257de43",
+    "revision": "4638d7b6be9fffa35ed305ca29d34adc",
     "url": "/vhyveapp/index.html"
   },
   {
@@ -8,15 +8,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vhyveapp/static/css/2.7997c105.chunk.css"
   },
   {
-    "revision": "0e87e245d3417b0ff257",
-    "url": "/vhyveapp/static/css/main.4b8adb7d.chunk.css"
+    "revision": "b1bfcd10321e91beb241",
+    "url": "/vhyveapp/static/css/main.1c66872c.chunk.css"
   },
   {
     "revision": "65648b954121bb16d8e1",
     "url": "/vhyveapp/static/js/2.8d940043.chunk.js"
   },
   {
-    "revision": "0e87e245d3417b0ff257",
+    "revision": "b1bfcd10321e91beb241",
     "url": "/vhyveapp/static/js/main.8a25be94.chunk.js"
   },
   {
