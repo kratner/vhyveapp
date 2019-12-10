@@ -1,7 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { GoPencil } from "react-icons/go";
+import styled from "styled-components";
 import simplify from "simplify-js";
 //const _url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Cephalometric_radiograph.JPG/600px-Cephalometric_radiograph.JPG";
+
+const PencilIcon = styled(GoPencil)`
+  color: #ffffff;
+  z-index: 9;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1em;
+  cursor: pointer;
+  &:hover {
+    color: #fdde6b;
+  }
+`;
 
 class DrawCanvas extends React.Component {
   constructor(props) {
@@ -15,6 +30,11 @@ class DrawCanvas extends React.Component {
       simplifyHighQuality: true,
       simplifyThreshold: 3
     };
+  }
+
+  handleCanvasToggle(thisRef) {
+    this.refs.canvas.style.opacity =
+      this.refs.canvas.style.opacity === "0" ? "1" : "0";
   }
 
   componentDidMount() {
@@ -156,6 +176,10 @@ class DrawCanvas extends React.Component {
             );
           })}
         </svg>
+        <PencilIcon
+          id="pencilicon"
+          onClick={() => this.handleCanvasToggle(this)}
+        />
       </div>
     );
   }
