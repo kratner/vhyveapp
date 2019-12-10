@@ -33,6 +33,15 @@ class DrawCanvas extends React.Component {
     this.setState({ isDrawing: true });
   }
 
+  handleTouchStart() {
+    if (!this.state.isDrawing) {
+      this.setState({
+        paths: [].concat(this.state.paths, [[]])
+      });
+    }
+    this.setState({ isDrawing: true });
+  }
+
   handleMouseMove(e) {
     if (this.state.isDrawing) {
       const x = e.pageX - this.state.left;
@@ -44,7 +53,24 @@ class DrawCanvas extends React.Component {
     }
   }
 
+  handleTouchMove(e) {
+    if (this.state.isDrawing) {
+      const x = e.changedTouches[0].clientX - this.state.left;
+      const y = e.changedTouches[0].clientY - this.state.top;
+      const paths = this.state.paths.slice(0);
+      const activePath = paths[paths.length - 1];
+      activePath.push({ x, y });
+      this.setState({ paths });
+    }
+  }
+
   handleMouseUp() {
+    if (this.state.isDrawing) {
+      this.setState({ isDrawing: false });
+    }
+  }
+
+  handleTouchEnd() {
     if (this.state.isDrawing) {
       this.setState({ isDrawing: false });
     }
@@ -111,8 +137,11 @@ class DrawCanvas extends React.Component {
           */
           ref="canvas"
           onMouseDown={this.handleMouseDown.bind(this)}
+          onTouchStart={this.handleTouchStart.bind(this)}
           onMouseUp={this.handleMouseUp.bind(this)}
+          onTouchEnd={this.handleTouchEnd.bind(this)}
           onMouseMove={this.handleMouseMove.bind(this)}
+          onTouchMove={this.handleTouchMove.bind(this)}
         >
           {/*<image x={0} y={0} xlinkHref={_url} height={480} width={600} /> */}
           {paths.map(path => {
