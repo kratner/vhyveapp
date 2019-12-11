@@ -25,7 +25,6 @@ const ColorSwatches = props => {
     default:
   }
   let swatches = props.colors.map((_color, index) => {
-    console.log("selected: " + props.selectedColor + " | _color: " + _color);
     const borderColor =
       "rgb(255, 255, 255" + (_color === props.selectedColor ? "" : ", 0") + ")";
     return (
