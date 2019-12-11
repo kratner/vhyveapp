@@ -74,6 +74,7 @@ class DrawCanvas extends React.Component {
     if (this.state.paths.length > 1) {
       this.setState({
         paths: [[]],
+        strokeColors: [],
         isDrawing: false
       });
       this.trashicon.style.opacity = "0.5";
