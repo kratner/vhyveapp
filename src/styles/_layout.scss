@@ -6,14 +6,42 @@ body {
 .vhyvelogo__parent {
   margin-left: 0.5em;
   margin-top: 0.5em;
-  position: fixed;
+  position: absolute;
   text-align: left;
-  width: 100%;
-  z-index: 10;
+  height: auto;
+  width: auto;
+  z-index: 50;
+  transition: 1.5s;
+  left: 0;
+  top: 0;
+  transform: translate(0, 0) scale(1);
   @media only screen and (orientation: landscape) {
     text-align: left;
   }
+  &.splash {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    @media only screen and (orientation: landscape) {
+      transform: translate(-50%, -50%) scale(3);
+    }
+  }
 }
+#vhyvelogo__underlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 49;
+  opacity: 0;
+  transition: 1.5s;
+  &.splash {
+    opacity: 1;
+  }
+}
+
 #controlcontainer {
   transition: height 0.25s;
   height: 0em;

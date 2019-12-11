@@ -8,7 +8,7 @@ import "./styles/App.scss";
 function App() {
   return (
     <div className="App">
-      <VHyveLogo />
+      <VHyveLogo delay="2000" />
       <VideoScreen />
       <DeviceOrientationIcon />
     </div>
