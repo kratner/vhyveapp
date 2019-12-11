@@ -406,6 +406,7 @@ class VideoScreen extends Component {
             }}
             width="100%"
             height="100%"
+            swatchColors={["red", "green", "blue", "yellow"]}
           />
         </DrawCanvasContainer>
         <ControlDrawer

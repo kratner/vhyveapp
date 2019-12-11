@@ -4,7 +4,6 @@ const ColorSwatches = props => {
   let flexDirection = "";
   let borderRadius = "";
   let margins = "";
-
   switch (props.layout) {
     case "horizontal":
       flexDirection = "row";
@@ -26,6 +25,9 @@ const ColorSwatches = props => {
     default:
   }
   let swatches = props.colors.map((_color, index) => {
+    console.log("selected: " + props.selectedColor + " | _color: " + _color);
+    const borderColor =
+      "rgb(255, 255, 255" + (_color === props.selectedColor ? "" : ", 0") + ")";
     return (
       <div
         key={index}
@@ -35,16 +37,30 @@ const ColorSwatches = props => {
           height: props.size,
           borderRadius: borderRadius,
           margin: margins,
-          cursor: "pointer"
+          cursor: "pointer",
+          border: "1px solid " + borderColor
         }}
-        onClick={() => {
+        onClick={e => {
+          //clearSwatchBorders(e);
+          e.currentTarget.parentNode
+            .querySelectorAll("div")
+            .forEach(element => {
+              element.style.border = "1px solid rgb(255, 255, 255, 0)";
+              element.classList.remove("selected");
+            });
+          e.currentTarget.classList.add("selected");
+          e.currentTarget.style.border = "1px solid rgb(255, 255, 255)";
           props.onSwatchClick(_color);
         }}
         onMouseOver={e => {
           e.currentTarget.style.border = "1px solid rgb(255, 255, 255)";
         }}
         onMouseOut={e => {
-          e.currentTarget.style.border = "1px solid rgb(255, 255, 255, 0)";
+          e.currentTarget.style.border = e.currentTarget.classList.contains(
+            "selected"
+          )
+            ? "1px solid rgb(255, 255, 255)"
+            : "1px solid rgb(255, 255, 255, 0)";
         }}
       ></div>
     );

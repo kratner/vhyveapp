@@ -58,8 +58,9 @@ class DrawCanvas extends React.Component {
     super(props);
     this.state = {
       paths: [[]],
-      pathFills: [],
-      fillColors: ["red", "blue", "green", "yellow"],
+      selectedSwatchColor: this.props.swatchColors[0],
+      strokeColors: [],
+      fillColors: this.props.swatchColors,
       isDrawing: false,
       top: 0,
       left: 0,
@@ -87,7 +88,9 @@ class DrawCanvas extends React.Component {
   }
 
   handleColorSwatchClick(thisRef, _color) {
-    console.log(_color);
+    this.setState({
+      selectedSwatchColor: _color
+    });
   }
 
   componentDidMount() {
@@ -102,8 +105,11 @@ class DrawCanvas extends React.Component {
 
   handleMouseDown() {
     if (!this.state.isDrawing) {
+      let strokeColors = this.state.strokeColors;
+      strokeColors.push(this.state.selectedSwatchColor);
       this.setState({
-        paths: [].concat(this.state.paths, [[]])
+        paths: [].concat(this.state.paths, [[]]),
+        strokeColors: strokeColors
       });
     }
     this.setState({ isDrawing: true });
@@ -111,8 +117,11 @@ class DrawCanvas extends React.Component {
 
   handleTouchStart() {
     if (!this.state.isDrawing) {
+      let strokeColors = this.state.strokeColors;
+      strokeColors.push(this.state.selectedSwatchColor);
       this.setState({
-        paths: [].concat(this.state.paths, [[]])
+        paths: [].concat(this.state.paths, [[]]),
+        strokeColors: strokeColors
       });
     }
     this.setState({ isDrawing: true });
@@ -222,11 +231,12 @@ class DrawCanvas extends React.Component {
           onTouchMove={this.handleTouchMove.bind(this)}
         >
           {/*<image x={0} y={0} xlinkHref={_url} height={480} width={600} /> */}
-          {paths.map(path => {
+          {paths.map((path, index) => {
             return (
               <path
                 key={path}
-                stroke="blue"
+                // stroke="blue"
+                stroke={this.state.strokeColors[index]}
                 strokeWidth={2}
                 d={path}
                 fill="none"
@@ -239,7 +249,8 @@ class DrawCanvas extends React.Component {
             layout="vertical"
             shape="circle"
             size="1em"
-            colors={["red", "green", "blue"]}
+            colors={this.state.fillColors}
+            selectedColor={this.state.selectedSwatchColor}
             spacing=".25em"
             onSwatchClick={_color => {
               this.handleColorSwatchClick(this, _color);
