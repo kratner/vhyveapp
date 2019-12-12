@@ -5,15 +5,15 @@ import styled from "styled-components";
 const DeviceIconContainer = styled.div`
   position: absolute;
   top: 0.5em;
-  right: 0.25em;
+  right: 0.5em;
   z-index: 15;
   color: #fff;
   font-size: 2em;
   transition: 0.15s;
   @media only screen and (orientation: landscape) {
-    top: 0;
+    top: 0.25em;
     transform: rotate(90deg);
-    right: 1em;
+    right: 1.5em;
   }
 `;
 const DeviceOrientationIcon = props => {

@@ -7,6 +7,7 @@ import styled from "styled-components";
 import OLMapElement from "./OLMapElement";
 import MessageBar from "./MessageBar";
 import DrawCanvas from "./SketchCanvas";
+import DeviceOrientationIcon from "./DeviceOrientationIcon";
 import { FaCompass } from "react-icons/fa";
 
 const DrawCanvasContainer = styled.div`
@@ -44,8 +45,8 @@ const RotatingIconContainer = styled.div`
   transform: translateX(-50%);
   transform-origin: 50% 50%;
   @media only screen and (orientation: landscape) {
-    top: 0.6em;
-    right: 5em;
+    top: 1.25em;
+    right: 5.5em;
     left: auto;
   }
 `;
@@ -84,8 +85,9 @@ class VideoScreen extends Component {
     this.handleVideoInputItemSelect = this.handleVideoInputItemSelect.bind(
       this
     );
-    this.rotatingUserIcon = React.createRef();
+    this.rotatingDirectionIcon = React.createRef();
     this.sketchCanvas = React.createRef();
+    this.deviceOrientationIcon = React.createRef();
   }
   gotDevices(thisRef, deviceInfos) {
     const audioInputDevices = [];
@@ -320,8 +322,10 @@ class VideoScreen extends Component {
     thisRef.showMessage(2, "Alpha: " + event.alpha);
     thisRef.showMessage(3, "Beta: " + event.beta);
     thisRef.showMessage(4, "Gamma: " + event.gamma);
-    this.rotatingUserIcon.current.style.transform =
+    this.rotatingDirectionIcon.current.style.transform =
       "rotate(" + event.alpha + "deg)";
+    this.deviceOrientationIcon.style.transform =
+      "rotate(" + event.gamma + "deg)";
   }
   showMessage(i, message) {
     switch (i) {
@@ -358,7 +362,8 @@ class VideoScreen extends Component {
     this.videoElement.onloadedmetadata = e => {
       e.currentTarget.play();
     };
-    this.rotatingIcon = document.getElementById("rotatingicon");
+    //this.rotatingIcon = document.getElementById("rotatingicon");
+    this.deviceOrientationIcon = document.getElementById("deviceorientation");
     navigator.mediaDevices.getUserMedia(this.state.constraints).then(stream => {
       this.gotStream(this, stream);
     });
@@ -391,11 +396,12 @@ class VideoScreen extends Component {
           locationRefreshRate={this.state.locationRefreshRate}
         />
         <RotatingIconContainer
-          id="rotatingusericon"
-          ref={this.rotatingUserIcon}
+          id="rotatingDirectionIcon"
+          ref={this.rotatingDirectionIcon}
         >
           <RotatingIcon id="rotatingicon" />
         </RotatingIconContainer>
+        <DeviceOrientationIcon ref={this.deviceOrientationIcon} />
         <DrawCanvasContainer id="sketchcanvas">
           <DrawCanvas
             style={{
