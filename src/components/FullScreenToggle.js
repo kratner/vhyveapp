@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineFullscreenExit, AiOutlineFullscreen } from "react-icons/ai";
 import styled from "styled-components";
+import FullScreen from "../utils/FullScreen";
 
 const FullScreenIconInactive = styled(AiOutlineFullscreen)`
   fill: #fff;
@@ -28,20 +29,28 @@ class FullScreenToggle extends React.Component {
     this.state = {
       fullScreen: false
     };
+    this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    debugger;
+    if (this.state.fullScreen) {
+      this.FullScreen.closeFullscreen(this.fullScreenElement);
+    } else {
+      this.FullScreen.openFullscreen(this.fullScreenElement);
+    }
+    this.setState({
+      fullScreen: !this.state.fullScreen
+    });
+  }
+  componentDidMount() {
+    this.FullScreen = new FullScreen();
+    this.fullScreenElement = document.documentElement;
   }
   render() {
     return (
       <FullScreenIconContainer
         id={this.props.id}
-        onClick={e => {
-          this.setState({
-            fullScreen: !this.state.fullScreen
-          });
-        }}
-        title={this.state.fullScreen ? "View Full Screen" : "Exit Full Screen"}
+        onClick={this.handleClick}
+        title={this.state.fullScreen ? "Exit Full Screen" : "View Full Screen"}
       >
         {//Check if message failed
         this.state.fullScreen ? (
