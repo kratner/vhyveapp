@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import { GoPencil, GoCircleSlash, GoTrashcan } from "react-icons/go";
 import ColorSwatches from "./ColorSwatches";
 import styled from "styled-components";
@@ -95,8 +95,9 @@ class DrawCanvas extends React.Component {
   }
 
   componentDidMount() {
-    const node = ReactDOM.findDOMNode(this.refs.canvas);
-    const rect = node.getBoundingClientRect();
+    //const node = ReactDOM.findDOMNode(this.refs.canvas);
+    const node = this.refs.canvas;
+    const rect = node.getBoundingClientRect(); debugger;
     const { left, top } = rect;
     this.setState({ top, left });
     this.penciliconslash = document.getElementById("penciliconslash");
