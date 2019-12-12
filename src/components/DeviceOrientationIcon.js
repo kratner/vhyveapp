@@ -21,7 +21,7 @@ const DeviceOrientationIcon = props => {
     typeof window.orientation !== "undefined" ||
     navigator.userAgent.indexOf("IEMobile") !== -1;
   return (
-    <DeviceIconContainer id="deviceorientation">
+    <DeviceIconContainer id={props.id}>
       {isMobileDevice() ? <IoIosPhonePortrait /> : null}
     </DeviceIconContainer>
   );

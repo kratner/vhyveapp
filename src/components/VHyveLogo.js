@@ -58,7 +58,7 @@ class VHyveLogo extends Component {
             </svg>
           </div>
         </div>
-        <div class="splash" id="vhyvelogo__underlay" />
+        <div className="splash" id="vhyvelogo__underlay" />
       </React.Fragment>
     );
   }

@@ -88,7 +88,6 @@ class VideoScreen extends Component {
     );
     this.rotatingDirectionIcon = React.createRef();
     this.sketchCanvas = React.createRef();
-    this.deviceOrientationIcon = React.createRef();
   }
   gotDevices(thisRef, deviceInfos) {
     const audioInputDevices = [];
@@ -402,7 +401,7 @@ class VideoScreen extends Component {
         >
           <RotatingIcon id="rotatingicon" />
         </RotatingIconContainer>
-        <DeviceOrientationIcon ref={this.deviceOrientationIcon} />
+        <DeviceOrientationIcon id="deviceorientation" />
         <DrawCanvasContainer id="sketchcanvas">
           <DrawCanvas
             style={{
