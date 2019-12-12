@@ -21,17 +21,37 @@ const FullScreenIconActive = styled(AiOutlineFullscreenExit)`
 const FullScreenIconContainer = styled.div`
   cursor: pointer;
 `;
-const FullScreenToggle = props => {
-  return (
-    <FullScreenIconContainer
-      id={props.id}
-      onClick={props.OnFullScreenClick}
-      title={props.active ? "View Full Screen" : "Exit Full Screen"}
-    >
-      {//Check if message failed
-      props.active ? <FullScreenIconActive /> : <FullScreenIconInactive />}
-    </FullScreenIconContainer>
-  );
-};
+
+class FullScreenToggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fullScreen: false
+    };
+  }
+  handleClick() {
+    debugger;
+  }
+  render() {
+    return (
+      <FullScreenIconContainer
+        id={this.props.id}
+        onClick={e => {
+          this.setState({
+            fullScreen: !this.state.fullScreen
+          });
+        }}
+        title={this.state.fullScreen ? "View Full Screen" : "Exit Full Screen"}
+      >
+        {//Check if message failed
+        this.state.fullScreen ? (
+          <FullScreenIconActive />
+        ) : (
+          <FullScreenIconInactive />
+        )}
+      </FullScreenIconContainer>
+    );
+  }
+}
 
 export default FullScreenToggle;

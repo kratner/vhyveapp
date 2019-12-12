@@ -8,6 +8,7 @@ import OLMapElement from "./OLMapElement";
 import MessageBar from "./MessageBar";
 import DrawCanvas from "./SketchCanvas";
 import DeviceOrientationIcon from "./DeviceOrientationIcon";
+import FullScreenToggle from "./FullScreenToggle";
 import { FaCompass } from "react-icons/fa";
 
 const DrawCanvasContainer = styled.div`
@@ -427,6 +428,7 @@ class VideoScreen extends Component {
           handleMapButtonClick={this.handleMapButtonClick}
         />
         <MessageBar id="messagecontainer" />
+        <FullScreenToggle id="fullscreentoggle" />
       </React.Fragment>
     );
   }
