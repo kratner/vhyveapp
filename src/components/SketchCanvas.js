@@ -95,9 +95,8 @@ class DrawCanvas extends React.Component {
   }
 
   componentDidMount() {
-    //const node = ReactDOM.findDOMNode(this.refs.canvas);
     const node = this.refs.canvas;
-    const rect = node.getBoundingClientRect(); debugger;
+    const rect = node.getBoundingClientRect();
     const { left, top } = rect;
     this.setState({ top, left });
     this.penciliconslash = document.getElementById("penciliconslash");

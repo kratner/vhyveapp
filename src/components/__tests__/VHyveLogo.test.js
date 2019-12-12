@@ -1,5 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
+//import { mount } from "enzyme";
 import VHyveLogo from "../VHyveLogo";
 
 describe("VHyveLogo", () => {
@@ -12,7 +13,7 @@ describe("VHyveLogo", () => {
     };
     */
     // const wrapper = shallow(<VHyveLogo {...props} />);
-    const wrapper = shallow(<VHyveLogo />);
+    const wrapper = shallow(<VHyveLogo delay="2000" />);
     expect(wrapper).toMatchSnapshot();
   });
 });

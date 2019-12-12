@@ -10,9 +10,11 @@ class VHyveLogo extends Component {
   componentDidMount() {
     this.logoContainer = document.getElementById("vhyvelogo");
     this.logoUnderlay = document.getElementById("vhyvelogo__underlay");
+    /*
     this.logoUnderlay.addEventListener("transitionend", () => {
       this.logoUnderlay.remove();
     });
+    */
     setTimeout(() => {
       this.logoContainer.classList.remove("splash");
       this.logoUnderlay.classList.remove("splash");
@@ -58,7 +60,13 @@ class VHyveLogo extends Component {
             </svg>
           </div>
         </div>
-        <div className="splash" id="vhyvelogo__underlay" />
+        <div
+          className="splash"
+          id="vhyvelogo__underlay"
+          onTransitionEnd={e => {
+            e.currentTarget.style.zIndex = "-1";
+          }}
+        />
       </React.Fragment>
     );
   }
