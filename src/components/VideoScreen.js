@@ -74,11 +74,13 @@ class VideoScreen extends Component {
       audioInputDevices: [],
       audioOutputDevices: [],
       videoDevices: [],
-      active: true,
+      cameraActive: true,
+      speakerActive: false,
       front: true,
       hasDevices: false
     };
     this.handleCameraToggle = this.handleCameraToggle.bind(this);
+    this.handleSpeakerToggle = this.handleSpeakerToggle.bind(this);
     this.handleAudioInputItemSelect = this.handleAudioInputItemSelect.bind(
       this
     );
@@ -168,9 +170,14 @@ class VideoScreen extends Component {
       error.name
     );
   }
+  handleSpeakerToggle() {
+    this.setState({
+      speakerActive: !this.state.speakerActive
+    });
+  }
   handleCameraToggle() {
     this.videoElement = document.getElementById("videoelement");
-    if (this.state.active) {
+    if (this.state.cameraActive) {
       if (window.stream) {
         window.stream.getTracks().forEach(track => {
           track.stop();
@@ -189,7 +196,7 @@ class VideoScreen extends Component {
       */
     }
     this.setState({
-      active: !this.state.active
+      cameraActive: !this.state.cameraActive
     });
   }
   handleAudioInputItemSelect(DeviceId) {
@@ -382,6 +389,7 @@ class VideoScreen extends Component {
             videoElementId={"videoelement"}
             audiosource={this.state.audioInputDeviceId}
             videosource={this.state.videoDeviceId}
+            speakerActive={this.state.speakerActive}
           />
           <FocalPointSVG recording="true" />
         </VideoScreenContainer>
@@ -415,8 +423,10 @@ class VideoScreen extends Component {
           />
         </DrawCanvasContainer>
         <ControlDrawer
-          cameraActive={this.state.active}
+          cameraActive={this.state.cameraActive}
+          speakerActive={this.state.speakerActive}
           handleCameraToggle={this.handleCameraToggle}
+          handleSpeakerToggle={this.handleSpeakerToggle}
           handleAudioInputItemSelect={this.handleAudioInputItemSelect}
           handleVideoInputItemSelect={this.handleVideoInputItemSelect}
           audioInputDevices={this.state.audioInputDevices}

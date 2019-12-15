@@ -5,6 +5,7 @@ import UserIcon from "./UserIcon";
 import MediaInputSelector from "./MediaInputSelector";
 import styled from "styled-components";
 import MapIconButton from "./MapIconButton";
+import SpeakerToggle from "./SpeakerToggle";
 
 const ControlDrawerContainer = styled.div`
   position: absolute;
@@ -45,6 +46,9 @@ const ControlDrawer = props => {
   const handleCameraToggle = () => {
     props.handleCameraToggle();
   };
+  const handleSpeakerToggle = () => {
+    props.handleSpeakerToggle();
+  };
   const handleAudioInputItemSelect = device => {
     props.handleAudioInputItemSelect(device);
   };
@@ -67,6 +71,13 @@ const ControlDrawer = props => {
           active={props.cameraActive}
           onClick={() => {
             handleCameraToggle();
+          }}
+        />
+        <SpeakerToggle
+          size="1.5em"
+          active={props.speakerActive}
+          onClick={() => {
+            handleSpeakerToggle();
           }}
         />
         <MapIconButton title="Toggle Map" onClick={handleMapButtonClick} />

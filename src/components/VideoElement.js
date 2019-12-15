@@ -33,9 +33,10 @@ const VideoElement = props => {
       <VideoCanvas
         className="videocanvas"
         id={props.videoElementId}
-        playsinline
-        autoplay
+        playsInline
+        autoPlay
         srcobject
+        muted={!props.speakerActive}
       ></VideoCanvas>
     </WebcamScreenContainer>
   );

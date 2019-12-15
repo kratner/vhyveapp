@@ -1,5 +1,5 @@
 import React from "react";
-import { GiSpeakerOff, GiSpeaker } from "react-icons/md";
+import { GiSpeakerOff, GiSpeaker } from "react-icons/gi";
 import styled from "styled-components";
 
 const SpeakerToggleContainer = styled.div`
