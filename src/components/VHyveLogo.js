@@ -1,10 +1,16 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class VHyveLogo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       logoContainer: document.getElementById("vhyvelogo")
+    };
+  }
+  mapStateToProps(state) {
+    return {
+      count: state.count
     };
   }
   componentDidMount() {
@@ -72,4 +78,5 @@ class VHyveLogo extends Component {
   }
 }
 
-export default VHyveLogo;
+//export default VHyveLogo;
+export default connect(VHyveLogo.mapStateToProps)(VHyveLogo);

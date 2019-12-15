@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import FocalPoint from "./FocalPoint";
-//import WebCamComponent from "./WebCamComponent";
 import VideoElement from "./VideoElement";
 import ControlDrawer from "./ControlDrawer";
 import styled from "styled-components";
