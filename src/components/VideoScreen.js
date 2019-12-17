@@ -13,6 +13,7 @@ import CameraToggle from "./CameraToggle";
 import SpeakerToggle from "./SpeakerToggle";
 import UserIcon from "./UserIcon";
 import MapIconButton from "./MapIconButton";
+import SwitchCamera from "./SwitchCamera";
 
 const ControlContainerBottom = styled.div`
   position: absolute;
@@ -92,10 +93,15 @@ class VideoScreen extends Component {
       videoDevices: [],
       cameraActive: true,
       speakerActive: false,
+      selfie: true,
       front: true,
       hasDevices: false,
-      mapActive: false
+      mapActive: false,
+      supportsFacingMode: false
     };
+    this.stream = null;
+    this.defaultConstraints = { audio: false, video: true };
+    this.shouldFaceUser = true;
     this.handleCameraToggle = this.handleCameraToggle.bind(this);
     this.handleSpeakerToggle = this.handleSpeakerToggle.bind(this);
     this.handleAudioInputItemSelect = this.handleAudioInputItemSelect.bind(
@@ -104,6 +110,7 @@ class VideoScreen extends Component {
     this.handleVideoInputItemSelect = this.handleVideoInputItemSelect.bind(
       this
     );
+    this.handleSwitchCamera = this.handleSwitchCamera.bind(this);
     this.handleMapButtonClick = this.handleMapButtonClick.bind(this);
     this.rotatingDirectionIcon = React.createRef();
     this.sketchCanvas = React.createRef();
@@ -131,7 +138,12 @@ class VideoScreen extends Component {
       audioInputDevices: audioInputDevices,
       audioOutputDevices: audioOutputDevices,
       videoDevices: videoDevices,
-      hasDevices: true /*,
+      hasDevices: true,
+      supportsFacingMode:
+        deviceInfos.filter(element => {
+          return element.kind === "videoinput";
+        }).length >
+        1 /*,
       constraints: {
         audio: {
           deviceId: audioInputDevices[0].deviceId
@@ -191,6 +203,33 @@ class VideoScreen extends Component {
   handleSpeakerToggle() {
     this.setState({
       speakerActive: !this.state.speakerActive
+    });
+  }
+
+  capture(selfie) {
+    debugger;
+    this.defaultConstraints.video = {
+      facingMode: !selfie ? "user" : "environment"
+    };
+    navigator.mediaDevices
+      .getUserMedia(this.defaultConstraints)
+      .then(_stream => {
+        window.stream = _stream;
+        this.videoElement.srcObject = window.stream;
+        this.videoElement.play();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  handleSwitchCamera() {
+    if (window.stream == null) return;
+    window.stream.getTracks().forEach(t => {
+      t.stop();
+    });
+    this.capture(this.state.selfie);
+    this.setState({
+      selfie: !this.state.selfie
     });
   }
   handleCameraToggle() {
@@ -394,15 +433,19 @@ class VideoScreen extends Component {
     };
     //this.rotatingIcon = document.getElementById("rotatingicon");
     this.deviceOrientationIcon = document.getElementById("deviceorientation");
-    navigator.mediaDevices.getUserMedia(this.state.constraints).then(stream => {
-      this.gotStream(this, stream);
-    });
-    navigator.mediaDevices
-      .enumerateDevices()
-      .then(devices => {
-        this.gotDevices(this, devices);
-      })
-      .catch(this.handleError);
+    if (navigator.mediaDevices !== undefined) {
+      navigator.mediaDevices
+        .getUserMedia(this.state.constraints)
+        .then(stream => {
+          this.gotStream(this, stream);
+        });
+      navigator.mediaDevices
+        .enumerateDevices()
+        .then(devices => {
+          this.gotDevices(this, devices);
+        })
+        .catch(this.handleError);
+    }
   }
 
   render() {
@@ -468,6 +511,15 @@ class VideoScreen extends Component {
               this.handleCameraToggle();
             }}
           />
+          {this.state.supportsFacingMode ? (
+            <SwitchCamera
+              size="1.5em"
+              selfie={this.state.selfie}
+              onClick={this.handleSwitchCamera}
+            />
+          ) : (
+            ""
+          )}
           <SpeakerToggle
             size="1.5em"
             active={this.state.speakerActive}
