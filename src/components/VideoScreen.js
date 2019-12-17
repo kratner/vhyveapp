@@ -9,6 +9,22 @@ import DrawCanvas from "./SketchCanvas";
 import DeviceOrientationIcon from "./DeviceOrientationIcon";
 import FullScreenToggle from "./FullScreenToggle";
 import { FaCompass } from "react-icons/fa";
+import CameraToggle from "./CameraToggle";
+import SpeakerToggle from "./SpeakerToggle";
+import UserIcon from "./UserIcon";
+import MapIconButton from "./MapIconButton";
+
+const ControlContainerBottom = styled.div`
+  position: absolute;
+  bottom: 0;
+  z-index: 25;
+  display: flex;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 0 2em 0;
+`;
 
 const DrawCanvasContainer = styled.div`
   position: absolute;
@@ -77,7 +93,8 @@ class VideoScreen extends Component {
       cameraActive: true,
       speakerActive: false,
       front: true,
-      hasDevices: false
+      hasDevices: false,
+      mapActive: false
     };
     this.handleCameraToggle = this.handleCameraToggle.bind(this);
     this.handleSpeakerToggle = this.handleSpeakerToggle.bind(this);
@@ -87,6 +104,7 @@ class VideoScreen extends Component {
     this.handleVideoInputItemSelect = this.handleVideoInputItemSelect.bind(
       this
     );
+    this.handleMapButtonClick = this.handleMapButtonClick.bind(this);
     this.rotatingDirectionIcon = React.createRef();
     this.sketchCanvas = React.createRef();
   }
@@ -313,8 +331,14 @@ class VideoScreen extends Component {
     const mapwindow = document.getElementById("mapwindow");
     if (mapwindow.classList.contains("active")) {
       mapwindow.classList.remove("active");
+      this.setState({
+        mapActive: false
+      });
     } else {
       mapwindow.classList.add("active");
+      this.setState({
+        mapActive: true
+      });
     }
   }
   handleGetLocation(position, thisRef) {
@@ -435,6 +459,28 @@ class VideoScreen extends Component {
           hasDevices={this.state.hasDevices}
           handleMapButtonClick={this.handleMapButtonClick}
         />
+        <ControlContainerBottom id="visiblecontrols">
+          <UserIcon id="usericon" />
+          <CameraToggle
+            size="1.5em"
+            active={this.state.cameraActive}
+            onClick={() => {
+              this.handleCameraToggle();
+            }}
+          />
+          <SpeakerToggle
+            size="1.5em"
+            active={this.state.speakerActive}
+            onClick={() => {
+              this.handleSpeakerToggle();
+            }}
+          />
+          <MapIconButton
+            size="1.5em"
+            active={this.state.mapActive}
+            onClick={this.handleMapButtonClick}
+          />
+        </ControlContainerBottom>
         <MessageBar id="messagecontainer" />
         <FullScreenToggle id="fullscreentoggle" />
       </React.Fragment>

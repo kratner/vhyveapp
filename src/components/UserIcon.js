@@ -23,7 +23,10 @@ const UserIconContainer = styled.div`
 `;
 const UserIcon = props => {
   return (
-    <UserIconContainer title={props.active ? "Your Profile" : "Log In"}>
+    <UserIconContainer
+      id={props.id}
+      title={props.active ? "Your Profile" : "Log In"}
+    >
       {//Check if message failed
       props.active ? <UserIconActive /> : <UserIconInactive />}
     </UserIconContainer>

@@ -1,17 +1,13 @@
 import React from "react";
 import { MdDragHandle } from "react-icons/md";
-import CameraToggle from "./CameraToggle";
-import UserIcon from "./UserIcon";
 import MediaInputSelector from "./MediaInputSelector";
 import styled from "styled-components";
-import MapIconButton from "./MapIconButton";
-import SpeakerToggle from "./SpeakerToggle";
 
 const ControlDrawerContainer = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 50;
 `;
 
 const DragHandle = styled(MdDragHandle)`
@@ -43,44 +39,18 @@ const ControlDrawer = props => {
       controlDrawer.classList.add("open");
     }
   };
-  const handleCameraToggle = () => {
-    props.handleCameraToggle();
-  };
-  const handleSpeakerToggle = () => {
-    props.handleSpeakerToggle();
-  };
   const handleAudioInputItemSelect = device => {
     props.handleAudioInputItemSelect(device);
   };
   const handleVideoInputItemSelect = device => {
     props.handleVideoInputItemSelect(device);
   };
-  const handleMapButtonClick = () => {
-    props.handleMapButtonClick();
-  };
-
   return (
     <ControlDrawerContainer id="controldrawer" className="controldrawer">
       <DrawerHandle onClick={handleToggle} title="Toggle Controls">
         <DragHandle />
       </DrawerHandle>
       <ControlContainer id="controlcontainer">
-        <UserIcon />
-        <CameraToggle
-          size="1.5em"
-          active={props.cameraActive}
-          onClick={() => {
-            handleCameraToggle();
-          }}
-        />
-        <SpeakerToggle
-          size="1.5em"
-          active={props.speakerActive}
-          onClick={() => {
-            handleSpeakerToggle();
-          }}
-        />
-        <MapIconButton title="Toggle Map" onClick={handleMapButtonClick} />
         {props.hasDevices ? (
           <MediaInputSelector
             audioInputDevices={props.audioInputDevices}

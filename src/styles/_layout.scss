@@ -45,7 +45,8 @@ body {
 #controlcontainer {
   transition: height 0.25s;
   height: 0em;
-  background-color: #ffffff25;
+  background-color: #fdde6a;
+  //background-color: #ffffff25;
   overflow: hidden;
   &.open {
     //height: 5em;
