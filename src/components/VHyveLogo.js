@@ -1,26 +1,9 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 
 class VHyveLogo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      logoContainer: document.getElementById("vhyvelogo")
-    };
-  }
-  mapStateToProps(state) {
-    return {
-      count: state.count
-    };
-  }
   componentDidMount() {
     this.logoContainer = document.getElementById("vhyvelogo");
     this.logoUnderlay = document.getElementById("vhyvelogo__underlay");
-    /*
-    this.logoUnderlay.addEventListener("transitionend", () => {
-      this.logoUnderlay.remove();
-    });
-    */
     setTimeout(() => {
       this.logoContainer.classList.remove("splash");
       this.logoUnderlay.classList.remove("splash");
@@ -78,5 +61,4 @@ class VHyveLogo extends Component {
   }
 }
 
-//export default VHyveLogo;
-export default connect(VHyveLogo.mapStateToProps)(VHyveLogo);
+export default VHyveLogo;
