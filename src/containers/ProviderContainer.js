@@ -32,11 +32,6 @@ const reducer = (state = initialState, action) => {
         loading: true
       };
     case GET_MEDIA_DEVICES_SUCCESS:
-      console.log({
-        ...state,
-        loading: false,
-        devices: action.payload.devices
-      });
       return {
         ...state,
         loading: false,
