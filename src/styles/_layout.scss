@@ -75,3 +75,13 @@ body {
     transform: translateY(-50%);
   }
 }
+
+#setupwindow {
+  transition: 0.25s;
+  opacity: 0;
+  z-index: -1;
+  &.open {
+    opacity: 1;
+    z-index: 50;
+  }
+}

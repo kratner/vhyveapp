@@ -7,7 +7,7 @@ import styled from "styled-components";
 const MapIconContainer = styled.div`
   color: #fff;
   cursor: pointer;
-  z-index: 10;
+  transform: translateX(1em);
   &:hover {
     color: #fdde6b;
   }

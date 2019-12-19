@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const ControlDrawerContainer = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 0em;
   width: 100%;
   z-index: 50;
 `;
@@ -42,6 +42,9 @@ const ControlDrawer = props => {
   const handleAudioInputItemSelect = device => {
     props.handleAudioInputItemSelect(device);
   };
+  const handleAudioOutputItemSelect = device => {
+    props.handleAudioOutputItemSelect(device);
+  };
   const handleVideoInputItemSelect = device => {
     props.handleVideoInputItemSelect(device);
   };
@@ -59,8 +62,11 @@ const ControlDrawer = props => {
             onVideoItemClick={device => {
               handleVideoInputItemSelect(device);
             }}
-            onAudioItemClick={device => {
+            onAudioInputItemClick={device => {
               handleAudioInputItemSelect(device);
+            }}
+            onAudioOutputItemClick={device => {
+              handleAudioOutputItemSelect(device);
             }}
           />
         ) : (

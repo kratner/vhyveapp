@@ -15,11 +15,13 @@ const MediaInputItem = styled.div`
   cursor: pointer;
   transition: 0.25s;
   padding-left: 0.5em;
+  border-left: 5px solid #ffffff00;
   &:hover {
-    background-color: #ffffff50;
+    background-color: #00bcd4;
   }
   &.selected {
-    background-color: #ffffff15;
+    /* background-color: #ffffff15; */
+    border-left: 5px solid black;
   }
 `;
 const MediaInputTypeLabel = styled.div`
@@ -31,14 +33,24 @@ const MProperty = styled.span``;
 const MLabel = styled(MProperty)``;
 const MediaInputSelector = props => {
   const handleAudioInputItemClick = (evt, device) => {
-    const audiodeviceselectors = document.getElementsByClassName(
-      "audiodeviceselector"
+    const audioinputdeviceselectors = document.getElementsByClassName(
+      "audioinputdeviceselector"
     );
-    for (let i = 0; i < audiodeviceselectors.length; i++) {
-      audiodeviceselectors[i].classList.remove("selected");
+    for (let i = 0; i < audioinputdeviceselectors.length; i++) {
+      audioinputdeviceselectors[i].classList.remove("selected");
     }
     evt.currentTarget.classList.add("selected");
-    props.onAudioItemClick(device);
+    props.onAudioInputItemClick(device);
+  };
+  const handleAudioOutputItemClick = (evt, device) => {
+    const audiooutputdeviceselectors = document.getElementsByClassName(
+      "audiooutputdeviceselector"
+    );
+    for (let i = 0; i < audiooutputdeviceselectors.length; i++) {
+      audiooutputdeviceselectors[i].classList.remove("selected");
+    }
+    evt.currentTarget.classList.add("selected");
+    props.onAudioOutputItemClick(device);
   };
   const handleVideoInputItemClick = (evt, device) => {
     const videodeviceselectors = document.getElementsByClassName(
@@ -51,13 +63,27 @@ const MediaInputSelector = props => {
     props.onVideoItemClick(device);
   };
   const AudioInputDeviceList = props.audioInputDevices.map((node, index) => {
-    const cls = (index === 0 ? "selected" : "") + ` audiodeviceselector`;
+    const cls = (index === 0 ? "selected" : "") + ` audioinputdeviceselector`;
     return (
       <MediaInputItem
         className={cls}
         key={index}
         onClick={evt => {
           handleAudioInputItemClick(evt, node);
+        }}
+      >
+        <MLabel>{node.label}</MLabel>
+      </MediaInputItem>
+    );
+  });
+  const AudioOutputDeviceList = props.audioOutputDevices.map((node, index) => {
+    const cls = (index === 0 ? "selected" : "") + ` audiooutputdeviceselector`;
+    return (
+      <MediaInputItem
+        className={cls}
+        key={index}
+        onClick={evt => {
+          handleAudioOutputItemClick(evt, node);
         }}
       >
         <MLabel>{node.label}</MLabel>
@@ -80,9 +106,13 @@ const MediaInputSelector = props => {
   });
   return (
     <InputSelectorContainer>
-      <MediaInputTypeLabel>Select Audio Device</MediaInputTypeLabel>
+      <MediaInputTypeLabel>Select Audio Input Device</MediaInputTypeLabel>
       <MicSelectorContainer id="micselectorcontainer">
         {AudioInputDeviceList}
+      </MicSelectorContainer>
+      <MediaInputTypeLabel>Select Audio Output Device</MediaInputTypeLabel>
+      <MicSelectorContainer id="speakerselectorcontainer">
+        {AudioOutputDeviceList}
       </MicSelectorContainer>
       <MediaInputTypeLabel>Select Camera</MediaInputTypeLabel>
       <CameraSelectorContainer id="cameraselectorcontainer">

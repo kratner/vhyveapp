@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FocalPoint from "./FocalPoint";
 import VideoElement from "./VideoElement";
-import ControlDrawer from "./ControlDrawer";
+//import ControlDrawer from "./ControlDrawer";
 import styled from "styled-components";
 import OLMapElement from "./OLMapElement";
 import MessageBar from "./MessageBar";
@@ -14,6 +14,7 @@ import SpeakerToggle from "./SpeakerToggle";
 import UserIcon from "./UserIcon";
 import MapIconButton from "./MapIconButton";
 import SwitchCamera from "./SwitchCamera";
+import SetupButton from "./SetupButton";
 
 const ControlContainerBottom = styled.div`
   position: absolute;
@@ -105,6 +106,9 @@ class VideoScreen extends Component {
     this.handleCameraToggle = this.handleCameraToggle.bind(this);
     this.handleSpeakerToggle = this.handleSpeakerToggle.bind(this);
     this.handleAudioInputItemSelect = this.handleAudioInputItemSelect.bind(
+      this
+    );
+    this.handleAudioOutputItemSelect = this.handleAudioOutputItemSelect.bind(
       this
     );
     this.handleVideoInputItemSelect = this.handleVideoInputItemSelect.bind(
@@ -232,6 +236,10 @@ class VideoScreen extends Component {
       selfie: !this.state.selfie
     });
   }
+  handleSetupButtonClick() {
+    const setupwindow = document.getElementById("setupwindow");
+    setupwindow.classList.add("open");
+  }
   handleCameraToggle() {
     this.videoElement = document.getElementById("videoelement");
     if (this.state.cameraActive) {
@@ -246,15 +254,10 @@ class VideoScreen extends Component {
         .then(stream => {
           this.gotStream(this, stream);
         });
-      /*
-      this.videoElement.onloadedmetadata = e => {
-        e.currentTarget.play();
-      };
-      */
     }
-    this.setState({
-      cameraActive: !this.state.cameraActive
-    });
+    this.setState(prevState => ({
+      cameraActive: !prevState.cameraActive
+    }));
   }
   handleAudioInputItemSelect(DeviceId) {
     if (window.stream) {
@@ -489,12 +492,14 @@ class VideoScreen extends Component {
             swatchColors={["red", "green", "blue", "yellow"]}
           />
         </DrawCanvasContainer>
+        {/*
         <ControlDrawer
           cameraActive={this.state.cameraActive}
           speakerActive={this.state.speakerActive}
           handleCameraToggle={this.handleCameraToggle}
           handleSpeakerToggle={this.handleSpeakerToggle}
           handleAudioInputItemSelect={this.handleAudioInputItemSelect}
+          handleAudioOutputItemSelect={this.handleAudioOutputItemSelect}
           handleVideoInputItemSelect={this.handleVideoInputItemSelect}
           audioInputDevices={this.state.audioInputDevices}
           audioOutputDevices={this.state.audioOutputDevices}
@@ -502,6 +507,8 @@ class VideoScreen extends Component {
           hasDevices={this.state.hasDevices}
           handleMapButtonClick={this.handleMapButtonClick}
         />
+        */}
+
         <ControlContainerBottom id="visiblecontrols">
           <UserIcon id="usericon" />
           <CameraToggle
@@ -532,9 +539,10 @@ class VideoScreen extends Component {
             active={this.state.mapActive}
             onClick={this.handleMapButtonClick}
           />
+          <SetupButton onClick={this.handleSetupButtonClick} />
+          <FullScreenToggle /* id="fullscreentoggle" */ />
         </ControlContainerBottom>
         <MessageBar id="messagecontainer" />
-        <FullScreenToggle id="fullscreentoggle" />
       </React.Fragment>
     );
   }
