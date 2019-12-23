@@ -28,8 +28,6 @@ const CloseButton = styled(MdClose)`
   }
 `;
 
-//const SetupOptions = styled.span``;
-
 const handleVideoInputItemSelect = device => {
   debugger;
 };
@@ -79,8 +77,8 @@ class SetupWindow extends Component {
 
 const mapStateToProps = state => {
   return {
-    devices: state.devices,
-    loading: state.loading
+    devices: state.mediaDevices.devices,
+    loading: state.mediaDevices.loading
   };
 };
 

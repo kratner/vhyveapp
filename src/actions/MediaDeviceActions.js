@@ -18,7 +18,7 @@ export const getMediaDevicesFailure = error => ({
   payload: { error }
 });
 
-export function getMediaDevices() {
+export const getMediaDevices = () => {
   const mediadevices = new MediaDevices();
 
   return dispatch => {
@@ -28,4 +28,4 @@ export function getMediaDevices() {
       return devices;
     });
   };
-}
+};

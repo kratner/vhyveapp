@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://kratner.github.io/vhyveapp",
   "dependencies": {
-    "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0"
   },
@@ -12,6 +11,7 @@
     "start": "HTTPS=true react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "deploy-profile": "gh-pages -d build --profile",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -34,14 +34,15 @@
   "devDependencies": {
     "@psychobolt/react-paperjs": "0.0.56",
     "babel-plugin-transform-export-extensions": "^6.22.0",
-    "canvas": "^2.6.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
+    "canvas": "^2.6.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "gh-pages": "^2.1.1",
     "jest-canvas-mock": "^2.2.0",
     "node-sass": "^4.13.0",
     "ol": "^6.1.1",
     "openlayers": "^4.6.5",
+    "react": "^16.12.0",
     "react-icons": "^3.8.0",
     "react-openlayers": "^0.2.1",
     "react-redux": "^7.1.3",
