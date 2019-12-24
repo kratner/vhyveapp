@@ -1,6 +1,6 @@
 # vHyve
 
-## vHyve Simultaneous Video Streaming
+## vHyve Media Streaming App
 
 https://kratner.github.io/vhyveapp/
 
