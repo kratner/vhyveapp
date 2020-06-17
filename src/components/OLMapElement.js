@@ -38,13 +38,13 @@ class OLMapElement extends Component {
       GeoLocationOptions: {
         enableHighAccuracy: false,
         timeout: 5000,
-        maximumAge: 0
-      }
+        maximumAge: 0,
+      },
     };
 
     window.addEventListener("resize", debounce(this.renderMap, 100));
     navigator.geolocation.watchPosition(
-      position => {
+      (position) => {
         this.handleGetLocation(position, this);
       },
       this.error,
@@ -52,7 +52,7 @@ class OLMapElement extends Component {
     );
     window.addEventListener(
       "deviceorientation",
-      event => {
+      (event) => {
         this.handleOrientation(event, this);
       },
       true
@@ -73,14 +73,14 @@ class OLMapElement extends Component {
     this.map = new ol.Map({
       layers: [
         new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
+          source: new ol.source.OSM(),
+        }),
       ],
       target: "mapcanvas",
       view: new ol.View({
         center: [0, 0],
-        zoom: 2
-      })
+        zoom: 2,
+      }),
     });
 
     // this.map.updateSize();
