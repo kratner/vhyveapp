@@ -12,7 +12,7 @@ to setup local development environment.
 
 Run:
 
-### `npm start`
+ `npm start`
 
 to launch development server.
 
@@ -24,7 +24,7 @@ to run Jest/Enzyme unit tests.
 
 Run:
 
-### `npm run deploy`
+ `npm run deploy`
 
 to publish to GitHub Pages.
 
